@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Case Study</title>
+
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My new website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    About me
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="./aboutme.html">Learn more about me</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="./Case-Study.html">Case Study Bellabeat</a>
+    </li>
+    <li>
+      <a href="./bmi_pah.html">BMI in PAH</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="./cv.html">Resume</a>
+</li>
+<li>
+  <a href="./contact.html">Contact</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/pcjota/mywebsite">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Case Study</h1>
+
+</div>
+
+
+<h1 style="text-align:center;">
+<strong>Google Data Analytics Capstone</strong>
+</h1>
+<h3 style="text-align:center;">
+<strong>How Can a Wellness Technology Company Play It Smart?</strong>
+</h3>
+<h3 style="text-align:center;">
+<strong>Bellabeat Wellness Company</strong>
+</h3>
+<p><img src="Fig00.png" /></p>
+<blockquote>
+<h3 id="introduction-and-background">Introduction and Background</h3>
+</blockquote>
+<p>In today’s rapidly evolving health and wellness market, data-driven
+insights are essential for companies seeking to harness their potential
+and engage consumers effectively. As a junior data analyst on the
+marketing analyst team at Bellabeat, I have the unique opportunity to
+contribute to a forward-thinking company specializing in high-tech
+health-focused products for women. Founded by Urška Sršen, who serves as
+the cofounder and Chief Creative Officer, Bellabeat is a dynamic small
+business poised to expand its footprint in the competitive global smart
+device market.</p>
+<p>The alignment of Bellabeat’s innovative products with the rising
+consumer demand for fitness and health monitoring technology presents a
+significant opportunity for growth. Sršen firmly believes that the
+strategic analysis of fitness data derived from smart devices can unlock
+previously untapped avenues for market expansion and customer
+engagement. Consequently, I have been tasked with delving into the usage
+patterns and behaviors of consumers through data analytics, focusing on
+one of Bellabeat’s flagship products.</p>
+<p>This analysis aims to provide insights that will not only enhance our
+understanding of user interactions with the device but also inform and
+guide marketing strategies for Bellabeat moving forward. By presenting
+these findings and high-level recommendations to the Bellabeat executive
+team, we hope to pave the way for a more targeted and effective approach
+to reaching our audience and leveraging our unique position in the
+health tech landscape. Through this initiative, we will explore the
+intricacies of consumer behavior and unlock the full potential of data
+to drive Bellabeat’s growth in the wellness ecosystem.</p>
+<blockquote>
+<h3 id="products-from-the-company">Products from the company</h3>
+</blockquote>
+<ul>
+<li>Bellabeat app: The Bellabeat app provides users with health data
+related to their activity, sleep, stress, menstrual cycle, and
+mindfulness habits. This data can help users better understand their
+current habits and make healthy decisions. The Bellabeat app connects to
+their line of smart wellness products.</li>
+<li>Leaf: Bellabeat’s classic wellness tracker can be worn as a
+bracelet, necklace, or clip. The Leaf tracker connects to the Bellabeat
+app to track activity, sleep, and stress.</li>
+<li>Time: This wellness watch combines the timeless look of a classic
+timepiece with smart technology to track user activity, sleep, and
+stress. The Time watch connects to the Bellabeat app to provide you with
+insights into your daily wellness.</li>
+<li>Spring: This is a water bottle that tracks daily water intake using
+smart technology to ensure that you are appropriately hydrated
+throughout the day. The Spring bottle connects to the Bellabeat app to
+track your hydration levels.</li>
+<li>Bellabeat membership: Bellabeat also offers a subscription-based
+membership program for users. Membership gives users 24/7 access to
+fully personalized guidance on nutrition, activity, sleep, health and
+beauty, and mindfulness based on their lifestyle and goals.</li>
+</ul>
+<blockquote>
+<h3 id="ask-phase"><strong>Ask Phase</strong></h3>
+</blockquote>
+<blockquote>
+<h4 id="objective">Objective:</h4>
+</blockquote>
+<p>Analyze data on consumer usage of non-Bellabeat smart devices to
+uncover trends that could offer valuable insights into how Bellabeat
+customers use smart devices. Using these insights, select a Bellabeat
+product and propose ways these trends can influence Bellabeat’s
+marketing strategy.</p>
+<blockquote>
+<h4 id="stakeholders">Stakeholders:</h4>
+</blockquote>
+<ul>
+<li>Urška Sršen: Bellabeat’s cofounder and Chief Creative Officer</li>
+<li>Sando Mur: Mathematician and Bellabeat’s cofounder; key member of
+the Bellabeat executive team</li>
+<li>Bellabeat marketing analytics team: A team of data analysts
+responsible for collecting, analyzing, and reporting data that helps
+guide Bellabeat’s marketing strategy. I joined this team six months ago
+and have been busy learning about Bellabeat’s mission and business goals
+— as well as how, as a junior data analyst, I can help Bellabeat achieve
+them.</li>
+</ul>
+<blockquote>
+<h3 id="prepare-phase"><strong>Prepare Phase</strong></h3>
+</blockquote>
+<blockquote>
+<h4 id="dataset-and-data-organization">Dataset and Data
+Organization:</h4>
+</blockquote>
+<p>The FitBit Fitness Tracker Data (CC0: Public Domain, available
+through Mobius) is a publicly accessible dataset on Kaggle, featuring
+personal fitness data from thirty Fitbit users. The data includes
+minute-by-minute records of physical activity, heart rate, and sleep
+monitoring, collected from users who agreed to share their personal
+tracker data. This dataset provides insights into daily activity, steps,
+and heart rate, making it a valuable resource for exploring user
+habits.</p>
+<p>The data was gathered from participants in a survey conducted via
+Amazon Mechanical Turk between December 3, 2016, and December 5, 2016.
+Thirty eligible Fitbit users consented to contribute their data, which
+includes detailed records for physical activity, heart rate, and sleep.
+Individual data can be accessed by session ID (column A) or timestamp
+(column B). Variations in the data reflect the different types of Fitbit
+trackers used, as well as the personal tracking preferences and
+behaviors of the participants.</p>
+<p>Eighteen CSV documents are available for analysis, each representing
+different quantitative data tracked by Fitbit. Due to the nature of the
+data, which is considered long, each row corresponds to one time point
+per subject. Consequently, each subject will have data in multiple
+rows.Each user has a unique ID, and the data is tracked by day and time,
+resulting in different rows for each user.</p>
+<blockquote>
+<h4 id="data-credibility-and-integrity">Data credibility and
+integrity:</h4>
+</blockquote>
+<p>Data credibility and integrity constitute significant concerns in the
+context of this study. The dataset, which is limited to 30 users,
+exhibits notable deficiencies in terms of demographic details and
+representativeness, as evidenced by its small size. Furthermore, the
+dataset’s limited collection period, spanning merely two months, is
+likely to introduce sampling bias issues into the data. To address these
+limitations and ensure the validity of the results, the present case
+study employs an approach that prioritizes practical applications of the
+data. This methodological decision is informed by a recognition of the
+dataset’s inherent limitations in terms of its scope and relevance.</p>
+<blockquote>
+<h3 id="process-phase"><strong>Process Phase</strong></h3>
+</blockquote>
+<p>I selected R, a powerful, open-source programming language
+specifically designed for statistical computing and graphics, as my
+analysis tool of choice. R is equipped with an extensive array of
+advanced statistical methods, a robust ecosystem of packages for various
+analysis requirements, and exceptional data visualization capabilities.
+Its robust capabilities make it ideal for complex statistical analysis
+as well as research-oriented data projects.</p>
+<div id="installing-and-loading-common-packages-and-libraries"
+class="section level4">
+<h4>Installing and loading common packages and libraries</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(dlookr)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
+</div>
+<div id="loading-csv-files" class="section level4">
+<h4>Loading CSV files</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>activity <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyActivity_merged.csv&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>sleep <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/sleepDay_merged.csv&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>calories <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyCalories_merged.csv&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>steps <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailySteps_merged.csv&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyIntensities_merged.csv&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/weightLogInfo_merged.csv&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># Heart rates in seconds</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>hr1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/heartrate_seconds_merged.csv&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>hr2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/heartrate_seconds_merged.csv&quot;</span>)</span></code></pre></div>
+<blockquote>
+<h4 id="explore-the-data">Explore the data</h4>
+</blockquote>
+<blockquote>
+<ul>
+<li>Daily Activity dataset</li>
+</ul>
+</blockquote>
+<p>Head</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">head</span>(activity)</span></code></pre></div>
+<pre><code>##           Id ActivityDate TotalSteps TotalDistance TrackerDistance
+## 1 1503960366    4/12/2016      13162          8.50            8.50
+## 2 1503960366    4/13/2016      10735          6.97            6.97
+## 3 1503960366    4/14/2016      10460          6.74            6.74
+## 4 1503960366    4/15/2016       9762          6.28            6.28
+## 5 1503960366    4/16/2016      12669          8.16            8.16
+## 6 1503960366    4/17/2016       9705          6.48            6.48
+##   LoggedActivitiesDistance VeryActiveDistance ModeratelyActiveDistance
+## 1                        0               1.88                     0.55
+## 2                        0               1.57                     0.69
+## 3                        0               2.44                     0.40
+## 4                        0               2.14                     1.26
+## 5                        0               2.71                     0.41
+## 6                        0               3.19                     0.78
+##   LightActiveDistance SedentaryActiveDistance VeryActiveMinutes
+## 1                6.06                       0                25
+## 2                4.71                       0                21
+## 3                3.91                       0                30
+## 4                2.83                       0                29
+## 5                5.04                       0                36
+## 6                2.51                       0                38
+##   FairlyActiveMinutes LightlyActiveMinutes SedentaryMinutes Calories
+## 1                  13                  328              728     1985
+## 2                  19                  217              776     1797
+## 3                  11                  181             1218     1776
+## 4                  34                  209              726     1745
+## 5                  10                  221              773     1863
+## 6                  20                  164              539     1728</code></pre>
+<p>Glimpse of Activity</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">glimpse</span>(activity)</span></code></pre></div>
+<pre><code>## Rows: 940
+## Columns: 15
+## $ Id                       &lt;dbl&gt; 1503960366, 1503960366, 1503960366, 150396036…
+## $ ActivityDate             &lt;chr&gt; &quot;4/12/2016&quot;, &quot;4/13/2016&quot;, &quot;4/14/2016&quot;, &quot;4/15/…
+## $ TotalSteps               &lt;int&gt; 13162, 10735, 10460, 9762, 12669, 9705, 13019…
+## $ TotalDistance            &lt;dbl&gt; 8.50, 6.97, 6.74, 6.28, 8.16, 6.48, 8.59, 9.8…
+## $ TrackerDistance          &lt;dbl&gt; 8.50, 6.97, 6.74, 6.28, 8.16, 6.48, 8.59, 9.8…
+## $ LoggedActivitiesDistance &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ VeryActiveDistance       &lt;dbl&gt; 1.88, 1.57, 2.44, 2.14, 2.71, 3.19, 3.25, 3.5…
+## $ ModeratelyActiveDistance &lt;dbl&gt; 0.55, 0.69, 0.40, 1.26, 0.41, 0.78, 0.64, 1.3…
+## $ LightActiveDistance      &lt;dbl&gt; 6.06, 4.71, 3.91, 2.83, 5.04, 2.51, 4.71, 5.0…
+## $ SedentaryActiveDistance  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ VeryActiveMinutes        &lt;int&gt; 25, 21, 30, 29, 36, 38, 42, 50, 28, 19, 66, 4…
+## $ FairlyActiveMinutes      &lt;int&gt; 13, 19, 11, 34, 10, 20, 16, 31, 12, 8, 27, 21…
+## $ LightlyActiveMinutes     &lt;int&gt; 328, 217, 181, 209, 221, 164, 233, 264, 205, …
+## $ SedentaryMinutes         &lt;int&gt; 728, 776, 1218, 726, 773, 539, 1149, 775, 818…
+## $ Calories                 &lt;int&gt; 1985, 1797, 1776, 1745, 1863, 1728, 1921, 203…</code></pre>
+<p>Checking missing data</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(activity))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<blockquote>
+<ul>
+<li>Sleep dataset</li>
+</ul>
+</blockquote>
+<p>Head</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">head</span>(sleep)</span></code></pre></div>
+<pre><code>##           Id  SleepDay TotalSleepRecords TotalMinutesAsleep TotalTimeInBed
+## 1 1503960366 4/12/2016                 1                327            346
+## 2 1503960366 4/13/2016                 2                384            407
+## 3 1503960366 4/15/2016                 1                412            442
+## 4 1503960366 4/16/2016                 2                340            367
+## 5 1503960366 4/17/2016                 1                700            712
+## 6 1503960366 4/19/2016                 1                304            320
+##   ActivityDay
+## 1   4/12/2016
+## 2   4/13/2016
+## 3   4/15/2016
+## 4   4/16/2016
+## 5   4/17/2016
+## 6   4/19/2016</code></pre>
+<p>Glimpse of Sleep</p>
+<pre><code>glimpse(sleep)</code></pre>
+<p>Checking missing data</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(sleep))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<blockquote>
+<ul>
+<li>Calories dataset</li>
+</ul>
+</blockquote>
+<p>Head</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">head</span>(calories)</span></code></pre></div>
+<pre><code>##           Id ActivityDay Calories
+## 1 1503960366   4/12/2016     1985
+## 2 1503960366   4/13/2016     1797
+## 3 1503960366   4/14/2016     1776
+## 4 1503960366   4/15/2016     1745
+## 5 1503960366   4/16/2016     1863
+## 6 1503960366   4/17/2016     1728</code></pre>
+<p>Glimpse of Calories</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">glimpse</span>(calories)</span></code></pre></div>
+<pre><code>## Rows: 940
+## Columns: 3
+## $ Id          &lt;dbl&gt; 1503960366, 1503960366, 1503960366, 1503960366, 1503960366…
+## $ ActivityDay &lt;chr&gt; &quot;4/12/2016&quot;, &quot;4/13/2016&quot;, &quot;4/14/2016&quot;, &quot;4/15/2016&quot;, &quot;4/16/…
+## $ Calories    &lt;int&gt; 1985, 1797, 1776, 1745, 1863, 1728, 1921, 2035, 1786, 1775…</code></pre>
+<p>Checking missing data</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(calories))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<blockquote>
+<ul>
+<li>Steps dataset</li>
+</ul>
+</blockquote>
+<p>Head</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">head</span>(steps)</span></code></pre></div>
+<pre><code>##           Id ActivityDay StepTotal
+## 1 1503960366   4/12/2016     13162
+## 2 1503960366   4/13/2016     10735
+## 3 1503960366   4/14/2016     10460
+## 4 1503960366   4/15/2016      9762
+## 5 1503960366   4/16/2016     12669
+## 6 1503960366   4/17/2016      9705</code></pre>
+<p>Glimpse of Steps</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">glimpse</span>(steps)</span></code></pre></div>
+<pre><code>## Rows: 940
+## Columns: 3
+## $ Id          &lt;dbl&gt; 1503960366, 1503960366, 1503960366, 1503960366, 1503960366…
+## $ ActivityDay &lt;chr&gt; &quot;4/12/2016&quot;, &quot;4/13/2016&quot;, &quot;4/14/2016&quot;, &quot;4/15/2016&quot;, &quot;4/16/…
+## $ StepTotal   &lt;int&gt; 13162, 10735, 10460, 9762, 12669, 9705, 13019, 15506, 1054…</code></pre>
+<p>Checking missing data</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(steps))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<blockquote>
+<ul>
+<li>Intensity dataset</li>
+</ul>
+</blockquote>
+<p>Head</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">head</span>(intensities)</span></code></pre></div>
+<pre><code>##           Id ActivityDay SedentaryMinutes LightlyActiveMinutes
+## 1 1503960366   4/12/2016              728                  328
+## 2 1503960366   4/13/2016              776                  217
+## 3 1503960366   4/14/2016             1218                  181
+## 4 1503960366   4/15/2016              726                  209
+## 5 1503960366   4/16/2016              773                  221
+## 6 1503960366   4/17/2016              539                  164
+##   FairlyActiveMinutes VeryActiveMinutes SedentaryActiveDistance
+## 1                  13                25                       0
+## 2                  19                21                       0
+## 3                  11                30                       0
+## 4                  34                29                       0
+## 5                  10                36                       0
+## 6                  20                38                       0
+##   LightActiveDistance ModeratelyActiveDistance VeryActiveDistance
+## 1                6.06                     0.55               1.88
+## 2                4.71                     0.69               1.57
+## 3                3.91                     0.40               2.44
+## 4                2.83                     1.26               2.14
+## 5                5.04                     0.41               2.71
+## 6                2.51                     0.78               3.19</code></pre>
+<p>Glimpse of Intensities</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">glimpse</span>(intensities)</span></code></pre></div>
+<pre><code>## Rows: 940
+## Columns: 10
+## $ Id                       &lt;dbl&gt; 1503960366, 1503960366, 1503960366, 150396036…
+## $ ActivityDay              &lt;chr&gt; &quot;4/12/2016&quot;, &quot;4/13/2016&quot;, &quot;4/14/2016&quot;, &quot;4/15/…
+## $ SedentaryMinutes         &lt;int&gt; 728, 776, 1218, 726, 773, 539, 1149, 775, 818…
+## $ LightlyActiveMinutes     &lt;int&gt; 328, 217, 181, 209, 221, 164, 233, 264, 205, …
+## $ FairlyActiveMinutes      &lt;int&gt; 13, 19, 11, 34, 10, 20, 16, 31, 12, 8, 27, 21…
+## $ VeryActiveMinutes        &lt;int&gt; 25, 21, 30, 29, 36, 38, 42, 50, 28, 19, 66, 4…
+## $ SedentaryActiveDistance  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ LightActiveDistance      &lt;dbl&gt; 6.06, 4.71, 3.91, 2.83, 5.04, 2.51, 4.71, 5.0…
+## $ ModeratelyActiveDistance &lt;dbl&gt; 0.55, 0.69, 0.40, 1.26, 0.41, 0.78, 0.64, 1.3…
+## $ VeryActiveDistance       &lt;dbl&gt; 1.88, 1.57, 2.44, 2.14, 2.71, 3.19, 3.25, 3.5…</code></pre>
+<p>Checking missing data</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(intensities))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<blockquote>
+<ul>
+<li>Weight dataset</li>
+</ul>
+</blockquote>
+<p>Head</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">head</span>(weight)</span></code></pre></div>
+<pre><code>##           Id                  Date WeightKg WeightPounds Fat   BMI
+## 1 1503960366  5/2/2016 11:59:59 PM     52.6     115.9631  22 22.65
+## 2 1503960366  5/3/2016 11:59:59 PM     52.6     115.9631  NA 22.65
+## 3 1927972279  4/13/2016 1:08:52 AM    133.5     294.3171  NA 47.54
+## 4 2873212765 4/21/2016 11:59:59 PM     56.7     125.0021  NA 21.45
+## 5 2873212765 5/12/2016 11:59:59 PM     57.3     126.3249  NA 21.69
+## 6 4319703577 4/17/2016 11:59:59 PM     72.4     159.6147  25 27.45
+##   IsManualReport        LogId
+## 1           True 1.462234e+12
+## 2           True 1.462320e+12
+## 3          False 1.460510e+12
+## 4           True 1.461283e+12
+## 5           True 1.463098e+12
+## 6           True 1.460938e+12</code></pre>
+<p>Glimpse of Weight</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">glimpse</span>(weight)</span></code></pre></div>
+<pre><code>## Rows: 67
+## Columns: 8
+## $ Id             &lt;dbl&gt; 1503960366, 1503960366, 1927972279, 2873212765, 2873212…
+## $ Date           &lt;chr&gt; &quot;5/2/2016 11:59:59 PM&quot;, &quot;5/3/2016 11:59:59 PM&quot;, &quot;4/13/2…
+## $ WeightKg       &lt;dbl&gt; 52.6, 52.6, 133.5, 56.7, 57.3, 72.4, 72.3, 69.7, 70.3, …
+## $ WeightPounds   &lt;dbl&gt; 115.9631, 115.9631, 294.3171, 125.0021, 126.3249, 159.6…
+## $ Fat            &lt;int&gt; 22, NA, NA, NA, NA, 25, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ BMI            &lt;dbl&gt; 22.65, 22.65, 47.54, 21.45, 21.69, 27.45, 27.38, 27.25,…
+## $ IsManualReport &lt;chr&gt; &quot;True&quot;, &quot;True&quot;, &quot;False&quot;, &quot;True&quot;, &quot;True&quot;, &quot;True&quot;, &quot;True&quot;…
+## $ LogId          &lt;dbl&gt; 1.462234e+12, 1.462320e+12, 1.460510e+12, 1.461283e+12,…</code></pre>
+<p>Checking missing data</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(weight))</span></code></pre></div>
+<pre><code>## [1] 65</code></pre>
+<blockquote>
+<ul>
+<li>Heart Rate 1 (March) dataset</li>
+</ul>
+</blockquote>
+<p>Head</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">head</span>(hr1)</span></code></pre></div>
+<pre><code>##           Id                Time Value
+## 1 2022484408 4/1/2016 7:54:00 AM    93
+## 2 2022484408 4/1/2016 7:54:05 AM    91
+## 3 2022484408 4/1/2016 7:54:10 AM    96
+## 4 2022484408 4/1/2016 7:54:15 AM    98
+## 5 2022484408 4/1/2016 7:54:20 AM   100
+## 6 2022484408 4/1/2016 7:54:25 AM   101</code></pre>
+<p>Glimpse of Heart Rate 1</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">glimpse</span>(hr1)</span></code></pre></div>
+<pre><code>## Rows: 1,154,681
+## Columns: 3
+## $ Id    &lt;dbl&gt; 2022484408, 2022484408, 2022484408, 2022484408, 2022484408, 2022…
+## $ Time  &lt;chr&gt; &quot;4/1/2016 7:54:00 AM&quot;, &quot;4/1/2016 7:54:05 AM&quot;, &quot;4/1/2016 7:54:10 …
+## $ Value &lt;int&gt; 93, 91, 96, 98, 100, 101, 104, 105, 102, 106, 109, 112, 111, 109…</code></pre>
+<p>Checking missing data</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(hr1))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<blockquote>
+<ul>
+<li>Heart Rate 2 (April) dataset</li>
+</ul>
+</blockquote>
+<p>Head</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">head</span>(hr2)</span></code></pre></div>
+<pre><code>##           Id                 Time Value
+## 1 2022484408 4/12/2016 7:21:00 AM    97
+## 2 2022484408 4/12/2016 7:21:05 AM   102
+## 3 2022484408 4/12/2016 7:21:10 AM   105
+## 4 2022484408 4/12/2016 7:21:20 AM   103
+## 5 2022484408 4/12/2016 7:21:25 AM   101
+## 6 2022484408 4/12/2016 7:22:05 AM    95</code></pre>
+<p>Glimpse of Heart Rate 2</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="fu">glimpse</span>(hr2)</span></code></pre></div>
+<pre><code>## Rows: 2,483,658
+## Columns: 3
+## $ Id    &lt;dbl&gt; 2022484408, 2022484408, 2022484408, 2022484408, 2022484408, 2022…
+## $ Time  &lt;chr&gt; &quot;4/12/2016 7:21:00 AM&quot;, &quot;4/12/2016 7:21:05 AM&quot;, &quot;4/12/2016 7:21:…
+## $ Value &lt;int&gt; 97, 102, 105, 103, 101, 95, 91, 93, 94, 93, 92, 89, 83, 61, 60, …</code></pre>
+<p>Checking missing data</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(hr2))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+</div>
+<div id="checking-the-number-of-unique-subjects-in-each-dataset"
+class="section level4">
+<h4>Checking the number of unique subjects in each dataset</h4>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(activity<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 33</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(sleep<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 24</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(calories<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 33</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(steps<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 33</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(intensities<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 33</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(weight<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(hr1<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 14</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(hr2<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 14</code></pre>
+<p><strong><em>Four of the datasets contain information from 33
+subjects. Sleep data was recorded by 24 subjects, heart rate data by 14,
+and weight data by only 8 participants.</em></strong></p>
+</div>
+<div id="checking-duplicates" class="section level4">
+<h4>Checking duplicates</h4>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(activity))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(calories))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(intensities))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(sleep))</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(steps))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(weight))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(hr1))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(hr2))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p><strong><em>It seems that only the sleep dataset has
+duplicates</em></strong></p>
+</div>
+<div id="checking-column-names" class="section level4">
+<h4>Checking column names</h4>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a><span class="fu">colnames</span>(activity)</span></code></pre></div>
+<pre><code>##  [1] &quot;Id&quot;                       &quot;ActivityDate&quot;            
+##  [3] &quot;TotalSteps&quot;               &quot;TotalDistance&quot;           
+##  [5] &quot;TrackerDistance&quot;          &quot;LoggedActivitiesDistance&quot;
+##  [7] &quot;VeryActiveDistance&quot;       &quot;ModeratelyActiveDistance&quot;
+##  [9] &quot;LightActiveDistance&quot;      &quot;SedentaryActiveDistance&quot; 
+## [11] &quot;VeryActiveMinutes&quot;        &quot;FairlyActiveMinutes&quot;     
+## [13] &quot;LightlyActiveMinutes&quot;     &quot;SedentaryMinutes&quot;        
+## [15] &quot;Calories&quot;</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a><span class="fu">colnames</span>(sleep)</span></code></pre></div>
+<pre><code>## [1] &quot;Id&quot;                 &quot;SleepDay&quot;           &quot;TotalSleepRecords&quot; 
+## [4] &quot;TotalMinutesAsleep&quot; &quot;TotalTimeInBed&quot;     &quot;ActivityDay&quot;</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" tabindex="-1"></a><span class="fu">colnames</span>(calories)</span></code></pre></div>
+<pre><code>## [1] &quot;Id&quot;          &quot;ActivityDay&quot; &quot;Calories&quot;</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a><span class="fu">colnames</span>(steps)</span></code></pre></div>
+<pre><code>## [1] &quot;Id&quot;          &quot;ActivityDay&quot; &quot;StepTotal&quot;</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" tabindex="-1"></a><span class="fu">colnames</span>(intensities)</span></code></pre></div>
+<pre><code>##  [1] &quot;Id&quot;                       &quot;ActivityDay&quot;             
+##  [3] &quot;SedentaryMinutes&quot;         &quot;LightlyActiveMinutes&quot;    
+##  [5] &quot;FairlyActiveMinutes&quot;      &quot;VeryActiveMinutes&quot;       
+##  [7] &quot;SedentaryActiveDistance&quot;  &quot;LightActiveDistance&quot;     
+##  [9] &quot;ModeratelyActiveDistance&quot; &quot;VeryActiveDistance&quot;</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" tabindex="-1"></a><span class="fu">colnames</span>(weight)</span></code></pre></div>
+<pre><code>## [1] &quot;Id&quot;             &quot;Date&quot;           &quot;WeightKg&quot;       &quot;WeightPounds&quot;  
+## [5] &quot;Fat&quot;            &quot;BMI&quot;            &quot;IsManualReport&quot; &quot;LogId&quot;</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" tabindex="-1"></a><span class="fu">colnames</span>(hr1)</span></code></pre></div>
+<pre><code>## [1] &quot;Id&quot;    &quot;Time&quot;  &quot;Value&quot;</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" tabindex="-1"></a><span class="fu">colnames</span>(hr2)</span></code></pre></div>
+<pre><code>## [1] &quot;Id&quot;    &quot;Time&quot;  &quot;Value&quot;</code></pre>
+<p><strong><em>While the 3 out of 4 datasets has a column called
+‘ActivityDay’, the activity dataset column is called ‘ActivityDate’.
+Since the dates match, we will rename the column in the process
+phase.</em></strong></p>
+<blockquote>
+<h4 id="summary-statistics">Summary statistics</h4>
+</blockquote>
+<blockquote>
+<ul>
+<li>Daily Activity data</li>
+</ul>
+</blockquote>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" tabindex="-1"></a>activity <span class="sc">%&gt;%</span>  </span>
+<span id="cb98-2"><a href="#cb98-2" tabindex="-1"></a>  <span class="fu">select</span>(TotalSteps,TotalDistance,SedentaryMinutes,Calories) <span class="sc">%&gt;%</span></span>
+<span id="cb98-3"><a href="#cb98-3" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##    TotalSteps    TotalDistance    SedentaryMinutes    Calories   
+##  Min.   :    0   Min.   : 0.000   Min.   :   0.0   Min.   :   0  
+##  1st Qu.: 3790   1st Qu.: 2.620   1st Qu.: 729.8   1st Qu.:1828  
+##  Median : 7406   Median : 5.245   Median :1057.5   Median :2134  
+##  Mean   : 7638   Mean   : 5.490   Mean   : 991.2   Mean   :2304  
+##  3rd Qu.:10727   3rd Qu.: 7.713   3rd Qu.:1229.5   3rd Qu.:2793  
+##  Max.   :36019   Max.   :28.030   Max.   :1440.0   Max.   :4900</code></pre>
+<p><strong><em>On average, this group of participants walks 7,638 steps
+per day. They spend approximately 991 minutes in a sedentary
+state.</em></strong></p>
+<blockquote>
+<ul>
+<li>Sleep data</li>
+</ul>
+</blockquote>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" tabindex="-1"></a>sleep <span class="sc">%&gt;%</span>  </span>
+<span id="cb100-2"><a href="#cb100-2" tabindex="-1"></a>  <span class="fu">select</span>(TotalSleepRecords,TotalMinutesAsleep,TotalTimeInBed) <span class="sc">%&gt;%</span></span>
+<span id="cb100-3"><a href="#cb100-3" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##  TotalSleepRecords TotalMinutesAsleep TotalTimeInBed 
+##  Min.   :1.000     Min.   : 58.0      Min.   : 61.0  
+##  1st Qu.:1.000     1st Qu.:361.0      1st Qu.:403.0  
+##  Median :1.000     Median :433.0      Median :463.0  
+##  Mean   :1.119     Mean   :419.5      Mean   :458.6  
+##  3rd Qu.:1.000     3rd Qu.:490.0      3rd Qu.:526.0  
+##  Max.   :3.000     Max.   :796.0      Max.   :961.0</code></pre>
+<p><strong><em>On average, the study participants required 39 minutes to
+fall asleep and reported sleeping for approximately seven
+hours.</em></strong></p>
+<blockquote>
+<ul>
+<li>Calories data</li>
+</ul>
+</blockquote>
+<div class="sourceCode" id="cb102"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" tabindex="-1"></a>calories <span class="sc">%&gt;%</span>  </span>
+<span id="cb102-2"><a href="#cb102-2" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##        Id            ActivityDay           Calories   
+##  Min.   :1.504e+09   Length:940         Min.   :   0  
+##  1st Qu.:2.320e+09   Class :character   1st Qu.:1828  
+##  Median :4.445e+09   Mode  :character   Median :2134  
+##  Mean   :4.855e+09                      Mean   :2304  
+##  3rd Qu.:6.962e+09                      3rd Qu.:2793  
+##  Max.   :8.878e+09                      Max.   :4900</code></pre>
+<p><strong><em>The average daily caloric expenditure of these
+participants is 2,304 calories.</em></strong></p>
+<blockquote>
+<ul>
+<li>Steps data</li>
+</ul>
+</blockquote>
+<div class="sourceCode" id="cb104"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" tabindex="-1"></a>steps <span class="sc">%&gt;%</span>  <span class="fu">select</span>(StepTotal) <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="#cb104-2" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##    StepTotal    
+##  Min.   :    0  
+##  1st Qu.: 3790  
+##  Median : 7406  
+##  Mean   : 7638  
+##  3rd Qu.:10727  
+##  Max.   :36019</code></pre>
+<p><strong><em>The mean total steps for this group is 7,406
+steps.</em></strong></p>
+<blockquote>
+<ul>
+<li>Intensities data</li>
+</ul>
+</blockquote>
+<div class="sourceCode" id="cb106"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" tabindex="-1"></a>intensities <span class="sc">%&gt;%</span> <span class="fu">select</span>(SedentaryMinutes,LightlyActiveMinutes,FairlyActiveMinutes,VeryActiveMinutes,VeryActiveDistance) <span class="sc">%&gt;%</span></span>
+<span id="cb106-2"><a href="#cb106-2" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##  SedentaryMinutes LightlyActiveMinutes FairlyActiveMinutes VeryActiveMinutes
+##  Min.   :   0.0   Min.   :  0.0        Min.   :  0.00      Min.   :  0.00   
+##  1st Qu.: 729.8   1st Qu.:127.0        1st Qu.:  0.00      1st Qu.:  0.00   
+##  Median :1057.5   Median :199.0        Median :  6.00      Median :  4.00   
+##  Mean   : 991.2   Mean   :192.8        Mean   : 13.56      Mean   : 21.16   
+##  3rd Qu.:1229.5   3rd Qu.:264.0        3rd Qu.: 19.00      3rd Qu.: 32.00   
+##  Max.   :1440.0   Max.   :518.0        Max.   :143.00      Max.   :210.00   
+##  VeryActiveDistance
+##  Min.   : 0.000    
+##  1st Qu.: 0.000    
+##  Median : 0.210    
+##  Mean   : 1.503    
+##  3rd Qu.: 2.053    
+##  Max.   :21.920</code></pre>
+<p><strong><em>This group exhibited a tendency to engage in sedentary
+behavior for a greater duration than the total amount of active time
+they accumulated each day, with an average of 1.5 miles of very active
+distance traversed.</em></strong></p>
+<blockquote>
+<ul>
+<li>Weight data</li>
+</ul>
+</blockquote>
+<div class="sourceCode" id="cb108"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" tabindex="-1"></a>weight <span class="sc">%&gt;%</span>  </span>
+<span id="cb108-2"><a href="#cb108-2" tabindex="-1"></a>  <span class="fu">select</span>(WeightPounds,Fat,BMI) <span class="sc">%&gt;%</span></span>
+<span id="cb108-3"><a href="#cb108-3" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##   WeightPounds        Fat             BMI       
+##  Min.   :116.0   Min.   :22.00   Min.   :21.45  
+##  1st Qu.:135.4   1st Qu.:22.75   1st Qu.:23.96  
+##  Median :137.8   Median :23.50   Median :24.39  
+##  Mean   :158.8   Mean   :23.50   Mean   :25.19  
+##  3rd Qu.:187.5   3rd Qu.:24.25   3rd Qu.:25.56  
+##  Max.   :294.3   Max.   :25.00   Max.   :47.54  
+##                  NA&#39;s   :65</code></pre>
+<p><strong><em>The mean weight and BMI of these subjects are 158 lbs and
+25.2, respectively.The Fat variable contains a preponderance of NAs,
+rendering its information unusable.</em></strong></p>
+<blockquote>
+<ul>
+<li>Heart Rate data</li>
+</ul>
+</blockquote>
+<div class="sourceCode" id="cb110"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" tabindex="-1"></a>hr1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(Value) <span class="sc">%&gt;%</span></span>
+<span id="cb110-2"><a href="#cb110-2" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##      Value       
+##  Min.   : 36.00  
+##  1st Qu.: 66.00  
+##  Median : 77.00  
+##  Mean   : 79.76  
+##  3rd Qu.: 90.00  
+##  Max.   :185.00</code></pre>
+<div class="sourceCode" id="cb112"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" tabindex="-1"></a>hr2 <span class="sc">%&gt;%</span> <span class="fu">select</span>(Value) <span class="sc">%&gt;%</span></span>
+<span id="cb112-2"><a href="#cb112-2" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>##      Value       
+##  Min.   : 36.00  
+##  1st Qu.: 63.00  
+##  Median : 73.00  
+##  Mean   : 77.33  
+##  3rd Qu.: 88.00  
+##  Max.   :203.00</code></pre>
+<p><strong><em>While the average was approximately 78, the data for both
+months demonstrate significant variations in heart
+rate.</em></strong></p>
+<blockquote>
+<h4 id="rename-intensities-dataset-column">Rename intensities dataset
+column</h4>
+</blockquote>
+<div class="sourceCode" id="cb114"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" tabindex="-1"></a>intensities <span class="ot">&lt;-</span> intensities <span class="sc">%&gt;%</span></span>
+<span id="cb114-2"><a href="#cb114-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">ActivityDate =</span> ActivityDay)</span></code></pre></div>
+<blockquote>
+<h4 id="identifying-duplicates-in-sleep-dataset">Identifying duplicates
+in sleep dataset</h4>
+</blockquote>
+<div class="sourceCode" id="cb115"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" tabindex="-1"></a>sleep_duplicates <span class="ot">&lt;-</span> sleep[<span class="fu">duplicated</span>(sleep), ]</span>
+<span id="cb115-2"><a href="#cb115-2" tabindex="-1"></a>sleep_duplicates</span></code></pre></div>
+<pre><code>##             Id  SleepDay TotalSleepRecords TotalMinutesAsleep TotalTimeInBed
+## 162 4388161847  5/5/2016                 1                471            495
+## 224 4702921684  5/7/2016                 1                520            543
+## 381 8378563200 4/25/2016                 1                388            402
+##     ActivityDay
+## 162    5/5/2016
+## 224    5/7/2016
+## 381   4/25/2016</code></pre>
+<blockquote>
+<h4 id="deleting-duplicates-in-sleep-dataset">Deleting duplicates in
+sleep dataset</h4>
+</blockquote>
+<div class="sourceCode" id="cb117"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" tabindex="-1"></a>new_sleep <span class="ot">&lt;-</span> sleep <span class="sc">%&gt;%</span></span>
+<span id="cb117-2"><a href="#cb117-2" tabindex="-1"></a>  <span class="fu">group_by_all</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb117-3"><a href="#cb117-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&lt;=</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb117-4"><a href="#cb117-4" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<blockquote>
+<h4
+id="checking-if-steps-dataset-contains-the-same-information-than-activity-dataset">Checking
+if steps dataset contains the same information than activity
+dataset</h4>
+</blockquote>
+<div class="sourceCode" id="cb118"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" tabindex="-1"></a><span class="fu">table</span>(activity<span class="sc">$</span>TotalSteps <span class="sc">==</span> steps<span class="sc">$</span>StepTotal)</span></code></pre></div>
+<pre><code>## 
+## TRUE 
+##  940</code></pre>
+<div class="sourceCode" id="cb120"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" tabindex="-1"></a><span class="fu">table</span>(activity<span class="sc">$</span>ActivityDate <span class="sc">==</span> steps<span class="sc">$</span>ActivityDay)</span></code></pre></div>
+<pre><code>## 
+## TRUE 
+##  940</code></pre>
+<p><strong>The data in steps is already within the activity dataset. We
+dont need it.</strong></p>
+<blockquote>
+<h4
+id="checking-if-calories-dataset-contains-the-same-information-than-activity-dataset">Checking
+if calories dataset contains the same information than activity
+dataset</h4>
+</blockquote>
+<div class="sourceCode" id="cb122"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" tabindex="-1"></a><span class="fu">table</span>(calories<span class="sc">$</span>Calories <span class="sc">==</span> activity<span class="sc">$</span>Calories)</span></code></pre></div>
+<pre><code>## 
+## TRUE 
+##  940</code></pre>
+<div class="sourceCode" id="cb124"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" tabindex="-1"></a><span class="fu">table</span>(calories<span class="sc">$</span>ActivityDay <span class="sc">==</span> activity<span class="sc">$</span>ActivityDate)</span></code></pre></div>
+<pre><code>## 
+## TRUE 
+##  940</code></pre>
+<p><strong>The data in calories is already within the activity dataset.
+We dont need it.</strong></p>
+<blockquote>
+<h4 id="merging-datasets-together">Merging datasets together</h4>
+</blockquote>
+<div class="sourceCode" id="cb126"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" tabindex="-1"></a>join_data <span class="ot">&lt;-</span> activity <span class="sc">%&gt;%</span></span>
+<span id="cb126-2"><a href="#cb126-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(intensities) </span></code></pre></div>
+<pre><code>## Joining with `by = join_by(Id, ActivityDate,
+## VeryActiveDistance, ModeratelyActiveDistance,
+## LightActiveDistance, SedentaryActiveDistance,
+## VeryActiveMinutes, FairlyActiveMinutes, LightlyActiveMinutes,
+## SedentaryMinutes)`</code></pre>
+<blockquote>
+<h4 id="checking-classes">Checking classes</h4>
+</blockquote>
+<div class="sourceCode" id="cb128"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" tabindex="-1"></a><span class="fu">str</span>(join_data)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    940 obs. of  15 variables:
+##  $ Id                      : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
+##  $ ActivityDate            : chr  &quot;4/12/2016&quot; &quot;4/13/2016&quot; &quot;4/14/2016&quot; &quot;4/15/2016&quot; ...
+##  $ TotalSteps              : int  13162 10735 10460 9762 12669 9705 13019 15506 10544 9819 ...
+##  $ TotalDistance           : num  8.5 6.97 6.74 6.28 8.16 ...
+##  $ TrackerDistance         : num  8.5 6.97 6.74 6.28 8.16 ...
+##  $ LoggedActivitiesDistance: num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ VeryActiveDistance      : num  1.88 1.57 2.44 2.14 2.71 ...
+##  $ ModeratelyActiveDistance: num  0.55 0.69 0.4 1.26 0.41 ...
+##  $ LightActiveDistance     : num  6.06 4.71 3.91 2.83 5.04 ...
+##  $ SedentaryActiveDistance : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ VeryActiveMinutes       : int  25 21 30 29 36 38 42 50 28 19 ...
+##  $ FairlyActiveMinutes     : int  13 19 11 34 10 20 16 31 12 8 ...
+##  $ LightlyActiveMinutes    : int  328 217 181 209 221 164 233 264 205 211 ...
+##  $ SedentaryMinutes        : int  728 776 1218 726 773 539 1149 775 818 838 ...
+##  $ Calories                : int  1985 1797 1776 1745 1863 1728 1921 2035 1786 1775 ...</code></pre>
+<blockquote>
+<h4 id="data-type-conversion">Data Type Conversion</h4>
+</blockquote>
+<div class="sourceCode" id="cb130"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" tabindex="-1"></a>join_data<span class="sc">$</span>Id <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(join_data<span class="sc">$</span>Id)</span>
+<span id="cb130-2"><a href="#cb130-2" tabindex="-1"></a>join_data<span class="sc">$</span>ActivityDate <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(join_data<span class="sc">$</span>ActivityDate, <span class="at">format =</span> <span class="st">&#39;%m/%d/%Y&#39;</span>)</span></code></pre></div>
+<blockquote>
+<h4 id="data-transformation">Data Transformation</h4>
+<h4 id="create-a-column-for-day-of-the-week">Create a column for day of
+the week</h4>
+</blockquote>
+<div class="sourceCode" id="cb131"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" tabindex="-1"></a>join_data<span class="sc">$</span>DayofWeek <span class="ot">&lt;-</span> <span class="fu">wday</span>(join_data<span class="sc">$</span>ActivityDate, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<blockquote>
+<h4 id="create-a-column-for-active-hours">Create a column for active
+hours</h4>
+</blockquote>
+<div class="sourceCode" id="cb132"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" tabindex="-1"></a>join_data <span class="ot">&lt;-</span> join_data <span class="sc">%&gt;%</span></span>
+<span id="cb132-2"><a href="#cb132-2" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">ActiveHours =</span> <span class="fu">round</span>(<span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">c</span>(VeryActiveMinutes,FairlyActiveMinutes,LightlyActiveMinutes)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)<span class="sc">/</span><span class="dv">60</span>))  </span></code></pre></div>
+<blockquote>
+<h4 id="create-a-column-for-sedentary-hours">Create a column for
+sedentary hours</h4>
+</blockquote>
+<div class="sourceCode" id="cb133"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" tabindex="-1"></a>join_data <span class="ot">&lt;-</span> join_data <span class="sc">%&gt;%</span></span>
+<span id="cb133-2"><a href="#cb133-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SedentaryHours =</span> <span class="fu">round</span>(SedentaryMinutes<span class="sc">/</span><span class="dv">60</span>))</span></code></pre></div>
+<blockquote>
+<h3 id="analyze-phase"><strong>Analyze Phase</strong></h3>
+</blockquote>
+<blockquote>
+<h4 id="do-these-participants-spend-more-time-active-or-sedentary">Do
+these participants spend more time active or sedentary?</h4>
+</blockquote>
+<div class="sourceCode" id="cb134"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" tabindex="-1"></a><span class="co"># Create total average activity</span></span>
+<span id="cb134-2"><a href="#cb134-2" tabindex="-1"></a>avgActive <span class="ot">&lt;-</span> <span class="fu">mean</span>(join_data<span class="sc">$</span>ActiveHours)</span>
+<span id="cb134-3"><a href="#cb134-3" tabindex="-1"></a>avgSedentary <span class="ot">&lt;-</span> <span class="fu">mean</span>(join_data<span class="sc">$</span>SedentaryHours)</span>
+<span id="cb134-4"><a href="#cb134-4" tabindex="-1"></a>tot <span class="ot">&lt;-</span> avgActive <span class="sc">+</span> avgSedentary</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" tabindex="-1"></a><span class="co"># Create a dataframe to plot</span></span>
+<span id="cb135-2"><a href="#cb135-2" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(avgActive, avgSedentary, tot)  <span class="sc">%&gt;%</span></span>
+<span id="cb135-3"><a href="#cb135-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb135-4"><a href="#cb135-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Active&quot;</span>, <span class="st">&quot;Sedentary&quot;</span>, <span class="st">&quot;Total&quot;</span>),</span>
+<span id="cb135-5"><a href="#cb135-5" tabindex="-1"></a>         <span class="at">percentage =</span> <span class="fu">c</span>((avgActive<span class="sc">/</span>tot), (avgSedentary<span class="sc">/</span>tot), tot<span class="sc">/</span>tot)) <span class="sc">%&gt;%</span></span>
+<span id="cb135-6"><a href="#cb135-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>name <span class="sc">==</span> <span class="st">&quot;Total&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb135-7"><a href="#cb135-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(percentage))</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb136-2"><a href="#cb136-2" tabindex="-1"></a><span class="fu">ggplot</span>(df1, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> value, <span class="at">fill =</span> name)) <span class="sc">+</span></span>
+<span id="cb136-3"><a href="#cb136-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb136-4"><a href="#cb136-4" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb136-5"><a href="#cb136-5" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Figure 1. Average Activity per Hour&quot;</span>) <span class="sc">+</span></span>
+<span id="cb136-6"><a href="#cb136-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb136-7"><a href="#cb136-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">&quot;Activity Type&quot;</span>, </span>
+<span id="cb136-8"><a href="#cb136-8" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Active&quot;</span>,</span>
+<span id="cb136-9"><a href="#cb136-9" tabindex="-1"></a>                                <span class="st">&quot;Sedentary&quot;</span>),</span>
+<span id="cb136-10"><a href="#cb136-10" tabindex="-1"></a>                    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;skyblue&quot;</span>, <span class="st">&quot;lightgray&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb136-11"><a href="#cb136-11" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> label), </span>
+<span id="cb136-12"><a href="#cb136-12" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb136-13"><a href="#cb136-13" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> .<span class="dv">4</span>),</span>
+<span id="cb136-14"><a href="#cb136-14" tabindex="-1"></a>             <span class="at">show.legend =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p>[Figure 1]</p>
+<p><strong><em>Unfortunately, this group of participants spend more than
+80% of their time without activity.</em></strong></p>
+<blockquote>
+<h4 id="comparing-the-3-types-of-active-minutes-with-calories">Comparing
+the 3 types of active minutes with calories</h4>
+</blockquote>
+<div class="sourceCode" id="cb137"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" tabindex="-1"></a><span class="co">#Create dataset for plot</span></span>
+<span id="cb137-2"><a href="#cb137-2" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> <span class="fu">gather</span>(join_data, variable, value, VeryActiveMinutes<span class="sc">:</span>LightlyActiveMinutes)</span>
+<span id="cb137-3"><a href="#cb137-3" tabindex="-1"></a></span>
+<span id="cb137-4"><a href="#cb137-4" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb137-5"><a href="#cb137-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data_long) <span class="sc">+</span> </span>
+<span id="cb137-6"><a href="#cb137-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> Calories, <span class="at">color =</span> variable)) <span class="sc">+</span></span>
+<span id="cb137-7"><a href="#cb137-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> Calories), <span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb137-8"><a href="#cb137-8" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb137-9"><a href="#cb137-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Active Minutes&#39;</span>) <span class="sc">+</span></span>
+<span id="cb137-10"><a href="#cb137-10" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Comparison of Active Minutes Intensity, and Calories&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb137-11"><a href="#cb137-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+[Figure 2]</p>
+<p><strong><em>As demonstrated in the data, there is a direct
+correlation between increased intensity and increased caloric
+expenditure. However, it is noteworthy that these subjects also engaged
+in light activity for a greater proportion of time.</em></strong></p>
+<blockquote>
+<h4 id="intensity-variation-within-days-of-the-week">Intensity variation
+within days of the week</h4>
+</blockquote>
+<div class="sourceCode" id="cb138"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data_long) <span class="sc">+</span> </span>
+<span id="cb138-2"><a href="#cb138-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> variable, <span class="at">x =</span> DayofWeek, <span class="at">y =</span> value), <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p>[Figure 3]</p>
+<p><strong><em>The graph clearly shows that participants generally
+engage in low-intensity exercise during the week and higher intensity
+exercise on the weekends.</em></strong></p>
+<blockquote>
+<h4 id="comparing-active-minutes-with-total-steps">Comparing active
+minutes with total steps</h4>
+</blockquote>
+<div class="sourceCode" id="cb139"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data_long) <span class="sc">+</span> </span>
+<span id="cb139-2"><a href="#cb139-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> TotalSteps, <span class="at">color =</span> variable)) <span class="sc">+</span></span>
+<span id="cb139-3"><a href="#cb139-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> TotalSteps), <span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb139-4"><a href="#cb139-4" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb139-5"><a href="#cb139-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Active Minutes&#39;</span>) <span class="sc">+</span></span>
+<span id="cb139-6"><a href="#cb139-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Total Steps&#39;</span>) <span class="sc">+</span></span>
+<span id="cb139-7"><a href="#cb139-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Comparison of Active Minutes Intensity, and Total Steps&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb139-8"><a href="#cb139-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>[Figure 4]</p>
+<p><strong><em>Conversely, as the intensity of the exercise increases,
+the number of steps taken also rises.</em></strong></p>
+<blockquote>
+<h4 id="relationship-between-steps-and-inactivity">Relationship between
+steps and inactivity</h4>
+</blockquote>
+<div class="sourceCode" id="cb140"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>activity, <span class="fu">aes</span>(<span class="at">x=</span>TotalSteps, <span class="at">y=</span>SedentaryMinutes)) <span class="sc">+</span> </span>
+<span id="cb140-2"><a href="#cb140-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb140-3"><a href="#cb140-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>TotalSteps, <span class="at">y=</span>SedentaryMinutes), <span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb140-4"><a href="#cb140-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Total Steps&#39;</span>)<span class="sc">+</span></span>
+<span id="cb140-5"><a href="#cb140-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Sedentary Minutes&#39;</span>)<span class="sc">+</span></span>
+<span id="cb140-6"><a href="#cb140-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;Total Steps and Sedentary Minutes Relationship&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb140-7"><a href="#cb140-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p>[Figure 5]</p>
+<p><strong><em>A negative correlation exists between the number of steps
+taken per day and sedentary minutes.</em></strong></p>
+<blockquote>
+<h4 id="minutes-asleep-and-time-in-bed-relationship">Minutes Asleep and
+Time in Bed Relationship</h4>
+</blockquote>
+<div class="sourceCode" id="cb141"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>new_sleep, <span class="fu">aes</span>(<span class="at">x=</span>TotalMinutesAsleep, <span class="at">y=</span>TotalTimeInBed)) <span class="sc">+</span> </span>
+<span id="cb141-2"><a href="#cb141-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb141-3"><a href="#cb141-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>TotalMinutesAsleep, <span class="at">y=</span>TotalTimeInBed), <span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb141-4"><a href="#cb141-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Total Minutes Asleep&#39;</span>)<span class="sc">+</span></span>
+<span id="cb141-5"><a href="#cb141-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Total Time in Bed&#39;</span>)<span class="sc">+</span></span>
+<span id="cb141-6"><a href="#cb141-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&#39;Minutes Asleep and Time in Bed Relationship&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb141-7"><a href="#cb141-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+[Figure 6]</p>
+<p><strong><em>While the relationship between time in bed and time
+asleep is nearly linear, some outliers are observed in subjects who
+require a longer time to fall asleep.</em></strong></p>
+<div
+id="according-to-who-guidelines-adults-should-do-at-least-150300-minutes-of-moderate-intensity-aerobic-physical-activity-or-at-least-75150-minutes-of-vigorous-intensity-aerobic-physical-activity-or-an-equivalent-combination-of-moderate--and-vigorous-intensity-activity-throughout-the-week-for-substantial-health-benefits.-httpswww.who.intpublicationsiitem9789240015128"
+class="section level5">
+<h5>According to WHO guidelines, Adults should do at least 150–300
+minutes of moderate-intensity aerobic physical activity; or at least
+75–150 minutes of vigorous intensity aerobic physical activity; or an
+equivalent combination of moderate- and vigorous-intensity activity
+throughout the week, for substantial health benefits. <a
+href="https://www.who.int/publications/i/item/9789240015128"
+class="uri">https://www.who.int/publications/i/item/9789240015128</a></h5>
+<blockquote>
+<h4 id="create-a-column-to-show-week-number">Create a column to show
+week number</h4>
+</blockquote>
+<div class="sourceCode" id="cb142"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" tabindex="-1"></a>join_data<span class="sc">$</span>week_num <span class="ot">&lt;-</span> <span class="fu">strftime</span>(join_data<span class="sc">$</span>ActivityDate, <span class="at">format =</span> <span class="st">&quot;%V&quot;</span>)</span>
+<span id="cb142-2"><a href="#cb142-2" tabindex="-1"></a><span class="fu">table</span>(join_data<span class="sc">$</span>week_num)</span></code></pre></div>
+<pre><code>## 
+##  15  16  17  18  19 
+## 196 224 221 201  98</code></pre>
+<blockquote>
+<h4 id="grouping-the-data-by-week">Grouping the data by week</h4>
+</blockquote>
+<div class="sourceCode" id="cb144"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" tabindex="-1"></a>aggregateByWk <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">group_by</span>(join_data,Id,week_num)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" tabindex="-1"></a>aggregateByWk <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">summarise</span>(aggregateByWk,</span>
+<span id="cb145-2"><a href="#cb145-2" tabindex="-1"></a>                                  <span class="at">AverageSteps =</span> base<span class="sc">::</span><span class="fu">mean</span>(TotalSteps, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-3"><a href="#cb145-3" tabindex="-1"></a>                                  <span class="at">AvgVeryActiveMin =</span> base<span class="sc">::</span><span class="fu">mean</span>(VeryActiveMinutes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-4"><a href="#cb145-4" tabindex="-1"></a>                                  <span class="at">AvgModerateActMin =</span> base<span class="sc">::</span><span class="fu">mean</span>(FairlyActiveMinutes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-5"><a href="#cb145-5" tabindex="-1"></a>                                  <span class="at">AvgLightlyActMin =</span> base<span class="sc">::</span><span class="fu">mean</span>(LightlyActiveMinutes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-6"><a href="#cb145-6" tabindex="-1"></a>                                  <span class="at">AvgSedentaryMin =</span> base<span class="sc">::</span><span class="fu">mean</span>(SedentaryMinutes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-7"><a href="#cb145-7" tabindex="-1"></a>                                  <span class="at">SumVeryActiveMin =</span> base<span class="sc">::</span><span class="fu">sum</span>(VeryActiveMinutes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-8"><a href="#cb145-8" tabindex="-1"></a>                                  <span class="at">SumModerateActiveMin =</span> base<span class="sc">::</span><span class="fu">sum</span>(FairlyActiveMinutes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-9"><a href="#cb145-9" tabindex="-1"></a>                                  <span class="at">SumLightlyActiveMin =</span> base<span class="sc">::</span><span class="fu">sum</span>(LightlyActiveMinutes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-10"><a href="#cb145-10" tabindex="-1"></a>                                  <span class="at">AvgModerateActDis =</span> base<span class="sc">::</span><span class="fu">mean</span>(ModeratelyActiveDistance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-11"><a href="#cb145-11" tabindex="-1"></a>                                  <span class="at">AvgVeryActiveDis =</span> base<span class="sc">::</span><span class="fu">mean</span>(VeryActiveDistance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-12"><a href="#cb145-12" tabindex="-1"></a>                                  <span class="at">AvgActiveHours =</span> base<span class="sc">::</span><span class="fu">mean</span>(ActiveHours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-13"><a href="#cb145-13" tabindex="-1"></a>                                  <span class="at">AvgSedentaryHours =</span> base<span class="sc">::</span><span class="fu">mean</span>(SedentaryHours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb145-14"><a href="#cb145-14" tabindex="-1"></a>                                  <span class="at">AvgCalories =</span> base<span class="sc">::</span><span class="fu">mean</span>(Calories, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<blockquote>
+<h4
+id="create-a-categorical-variable-for-healthy-habits-according-to-who-guidelines">Create
+a categorical variable for healthy habits according to WHO
+guidelines</h4>
+</blockquote>
+<div class="sourceCode" id="cb146"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" tabindex="-1"></a>aggregateByWk <span class="ot">&lt;-</span> aggregateByWk <span class="sc">%&gt;%</span></span>
+<span id="cb146-2"><a href="#cb146-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Healthy =</span> <span class="fu">case_when</span>(SumModerateActiveMin <span class="sc">&gt;=</span> <span class="dv">150</span> <span class="sc">~</span> <span class="st">&#39;Y&#39;</span>,</span>
+<span id="cb146-3"><a href="#cb146-3" tabindex="-1"></a>                             SumVeryActiveMin <span class="sc">&gt;=</span> <span class="dv">75</span> <span class="sc">~</span> <span class="st">&#39;Y&#39;</span>,</span>
+<span id="cb146-4"><a href="#cb146-4" tabindex="-1"></a>                             <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&#39;N&#39;</span>))</span></code></pre></div>
+<blockquote>
+<h4 id="plot">Plot</h4>
+</blockquote>
+<div class="sourceCode" id="cb147"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" tabindex="-1"></a><span class="fu">ggplot</span>(aggregateByWk, <span class="fu">aes</span>(Healthy, AverageSteps)) <span class="sc">+</span></span>
+<span id="cb147-2"><a href="#cb147-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">stage</span>(Healthy, <span class="at">after_scale =</span> <span class="fu">alpha</span>(fill, <span class="fl">0.4</span>)))) <span class="sc">+</span></span>
+<span id="cb147-3"><a href="#cb147-3" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Mean number of steps by Healthy and Unhealthy Activity&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb147-4"><a href="#cb147-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-59-1.png" width="672" />
+[Figure 7]</p>
+<p><strong><em>The data demonstrate that participants who maintain a
+“healthy” level of physical activity typically walk approximately 10,000
+steps, while those in the “unhealthy” category typically walk around
+5,000 steps on average.</em></strong></p>
+</div>
+</div>
+<div id="comparing-very-active-and-moderate-intensities"
+class="section level3">
+<h3>Comparing very active and moderate intensities</h3>
+<div class="sourceCode" id="cb148"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" tabindex="-1"></a>ver1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> aggregateByWk, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> AvgVeryActiveMin, <span class="at">y =</span> AvgVeryActiveDis, <span class="at">colour =</span> Healthy)) <span class="sc">+</span></span>
+<span id="cb148-2"><a href="#cb148-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb148-3"><a href="#cb148-3" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Mean Very Active Minutes&#39;</span>) <span class="sc">+</span></span>
+<span id="cb148-4"><a href="#cb148-4" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Mean Very Active Distance&#39;</span>)</span>
+<span id="cb148-5"><a href="#cb148-5" tabindex="-1"></a></span>
+<span id="cb148-6"><a href="#cb148-6" tabindex="-1"></a></span>
+<span id="cb148-7"><a href="#cb148-7" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> aggregateByWk, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> AvgModerateActMin, <span class="at">y =</span> AvgModerateActDis, <span class="at">colour =</span> Healthy)) <span class="sc">+</span></span>
+<span id="cb148-8"><a href="#cb148-8" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">120</span>) <span class="sc">+</span></span>
+<span id="cb148-9"><a href="#cb148-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb148-10"><a href="#cb148-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Mean Moderate Active Minutes&#39;</span>) <span class="sc">+</span></span>
+<span id="cb148-11"><a href="#cb148-11" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;Mean Moderate Active Distance&#39;</span>)</span>
+<span id="cb148-12"><a href="#cb148-12" tabindex="-1"></a></span>
+<span id="cb148-13"><a href="#cb148-13" tabindex="-1"></a>g0 <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(ver1, mod1, <span class="at">labels =</span> <span class="st">&quot;AUTO&quot;</span>)</span>
+<span id="cb148-14"><a href="#cb148-14" tabindex="-1"></a></span>
+<span id="cb148-15"><a href="#cb148-15" tabindex="-1"></a>title0 <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>() <span class="sc">+</span> <span class="fu">draw_label</span>(<span class="st">&quot;Very Active and Moderate Activity&quot;</span>, <span class="at">fontface=</span><span class="st">&#39;bold&#39;</span>)</span>
+<span id="cb148-16"><a href="#cb148-16" tabindex="-1"></a></span>
+<span id="cb148-17"><a href="#cb148-17" tabindex="-1"></a><span class="fu">plot_grid</span>(title0, g0, <span class="at">ncol=</span><span class="dv">1</span>, <span class="at">rel_heights=</span><span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-60-1.png" width="672" />
+[Figure 8]</p>
+<p><strong><em>Participants engaging in moderate physical activity
+allocate a reduced amount of time and cover shorter distances in
+comparison to individuals categorized as “very
+active.”</em></strong></p>
+<blockquote>
+<h4
+id="is-the-intensity-of-physical-activity-evenly-distributed-or-is-it-concentrated-in-some-participants">Is
+the intensity of physical activity evenly distributed or is it
+concentrated in some participants?</h4>
+</blockquote>
+<div class="sourceCode" id="cb149"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" tabindex="-1"></a>data_longwk <span class="ot">&lt;-</span> <span class="fu">gather</span>(aggregateByWk, variable, value, AvgVeryActiveMin<span class="sc">:</span>AvgModerateActMin)</span>
+<span id="cb149-2"><a href="#cb149-2" tabindex="-1"></a></span>
+<span id="cb149-3"><a href="#cb149-3" tabindex="-1"></a>intbyid <span class="ot">&lt;-</span> data_longwk <span class="sc">%&gt;%</span></span>
+<span id="cb149-4"><a href="#cb149-4" tabindex="-1"></a>  <span class="fu">group_by</span>(Id,variable) <span class="sc">%&gt;%</span></span>
+<span id="cb149-5"><a href="#cb149-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_value =</span> <span class="fu">mean</span>(value))</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> intbyid) <span class="sc">+</span> </span>
+<span id="cb150-2"><a href="#cb150-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill =</span> variable, <span class="at">x =</span> Id, <span class="at">y =</span> mean_value), <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb150-3"><a href="#cb150-3" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Activity intensity per subject&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb150-4"><a href="#cb150-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb150-5"><a href="#cb150-5" tabindex="-1"></a>        <span class="fu">coord_flip</span>( )</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-62-1.png" width="672" />
+[Figure 9]</p>
+<p><strong><em>It is evident that the intensity of physical activity is
+disproportionate among the participants, with some displaying notably
+higher levels of exertion compared to the overall
+group.</em></strong></p>
+<blockquote>
+<h4
+id="test-whether-individuals-who-engage-in-more-physical-activity-experience-better-sleep-quality.">Test
+whether individuals who engage in more physical activity experience
+better sleep quality.</h4>
+</blockquote>
+<blockquote>
+<h4 id="join-sleep-with-the-intensities-data">join sleep with the
+intensities data</h4>
+</blockquote>
+<div class="sourceCode" id="cb151"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" tabindex="-1"></a>new_sleep <span class="ot">&lt;-</span> new_sleep <span class="sc">%&gt;%</span></span>
+<span id="cb151-2"><a href="#cb151-2" tabindex="-1"></a>  <span class="fu">left_join</span>(intensities, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&#39;Id&#39;</span>, <span class="st">&#39;ActivityDay&#39;</span><span class="ot">=</span><span class="st">&#39;ActivityDate&#39;</span>))</span></code></pre></div>
+<blockquote>
+<h4
+id="total-active-minutes-can-be-the-sum-of-veryactiveminutesfairlyactiveminuteslightlyactiveminutes.">Total
+active minutes, can be the sum of
+VeryActiveMinutes+FairlyActiveMinutes+LightlyActiveMinutes.</h4>
+<h4 id="create-new-column-for-active-minutes">Create new column for
+active minutes</h4>
+</blockquote>
+<div class="sourceCode" id="cb152"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" tabindex="-1"></a>new_sleep <span class="ot">&lt;-</span> new_sleep <span class="sc">%&gt;%</span></span>
+<span id="cb152-2"><a href="#cb152-2" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb152-3"><a href="#cb152-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TotalActiveMin =</span> <span class="fu">sum</span>(VeryActiveMinutes,FairlyActiveMinutes,LightlyActiveMinutes, <span class="at">na.rm =</span> T))</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" tabindex="-1"></a><span class="co">#plot(new_sleep$TotalActiveMin, new_sleep$TotalMinutesAsleep)</span></span>
+<span id="cb153-2"><a href="#cb153-2" tabindex="-1"></a></span>
+<span id="cb153-3"><a href="#cb153-3" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>new_sleep,<span class="fu">aes</span>(<span class="at">x=</span>TotalActiveMin, <span class="at">y=</span>TotalMinutesAsleep)) <span class="sc">+</span></span>
+<span id="cb153-4"><a href="#cb153-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>())<span class="sc">+</span></span>
+<span id="cb153-5"><a href="#cb153-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> TotalActiveMin, <span class="at">y =</span> TotalMinutesAsleep)) <span class="sc">+</span></span>
+<span id="cb153-6"><a href="#cb153-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Total Active Minutes&quot;</span>) <span class="sc">+</span></span>
+<span id="cb153-7"><a href="#cb153-7" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Total Minutes Asleep&quot;</span>)</span>
+<span id="cb153-8"><a href="#cb153-8" tabindex="-1"></a></span>
+<span id="cb153-9"><a href="#cb153-9" tabindex="-1"></a></span>
+<span id="cb153-10"><a href="#cb153-10" tabindex="-1"></a>p2  <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>new_sleep,<span class="fu">aes</span>(<span class="at">x=</span>SedentaryMinutes, <span class="at">y=</span>TotalMinutesAsleep)) <span class="sc">+</span></span>
+<span id="cb153-11"><a href="#cb153-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>())<span class="sc">+</span></span>
+<span id="cb153-12"><a href="#cb153-12" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> SedentaryMinutes, <span class="at">y =</span> TotalMinutesAsleep)) <span class="sc">+</span></span>
+<span id="cb153-13"><a href="#cb153-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Total Sedentary Minutes&quot;</span>) <span class="sc">+</span></span>
+<span id="cb153-14"><a href="#cb153-14" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Total Minutes Asleep&quot;</span>)</span>
+<span id="cb153-15"><a href="#cb153-15" tabindex="-1"></a></span>
+<span id="cb153-16"><a href="#cb153-16" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(p1, p2, <span class="at">labels =</span> <span class="st">&quot;AUTO&quot;</span>)</span>
+<span id="cb153-17"><a href="#cb153-17" tabindex="-1"></a></span>
+<span id="cb153-18"><a href="#cb153-18" tabindex="-1"></a></span>
+<span id="cb153-19"><a href="#cb153-19" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>() <span class="sc">+</span> <span class="fu">draw_label</span>(<span class="st">&quot;Comparison of Active and Sedentary time with Sleep time&quot;</span>, <span class="at">fontface=</span><span class="st">&#39;bold&#39;</span>)</span>
+<span id="cb153-20"><a href="#cb153-20" tabindex="-1"></a></span>
+<span id="cb153-21"><a href="#cb153-21" tabindex="-1"></a><span class="fu">plot_grid</span>(title, g, <span class="at">ncol=</span><span class="dv">1</span>, <span class="at">rel_heights=</span><span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-65-1.png" width="672" />
+[Figure 10]</p>
+<p><strong><em>While the data does not appear to support a direct
+correlation between physical activity time and sleep time among
+participants, a negative relationship is observed between sedentary time
+and sleep time.</em></strong></p>
+<blockquote>
+<h4
+id="do-individuals-with-higher-body-weight-tend-to-be-less-active">Do
+individuals with higher body weight tend to be less active?</h4>
+</blockquote>
+<blockquote>
+<h4 id="data-type-conversion-1">Data type conversion</h4>
+</blockquote>
+<div class="sourceCode" id="cb154"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" tabindex="-1"></a>weight<span class="sc">$</span>ActivityDay <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(weight<span class="sc">$</span>Date, <span class="at">format =</span> <span class="st">&#39;%m/%d/%Y&#39;</span>)</span>
+<span id="cb154-2"><a href="#cb154-2" tabindex="-1"></a>weight<span class="sc">$</span>Id <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(weight<span class="sc">$</span>Id)</span></code></pre></div>
+<blockquote>
+<h4 id="join-with-activity-data">Join with activity data</h4>
+</blockquote>
+<div class="sourceCode" id="cb155"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" tabindex="-1"></a>new_weight <span class="ot">&lt;-</span> weight <span class="sc">%&gt;%</span></span>
+<span id="cb155-2"><a href="#cb155-2" tabindex="-1"></a>  <span class="fu">select</span>(Id,ActivityDay,WeightPounds,BMI) <span class="sc">%&gt;%</span></span>
+<span id="cb155-3"><a href="#cb155-3" tabindex="-1"></a>  <span class="fu">left_join</span>(join_data, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&#39;Id&#39;</span>,<span class="st">&#39;ActivityDay&#39;</span><span class="ot">=</span><span class="st">&#39;ActivityDate&#39;</span>))</span></code></pre></div>
+<blockquote>
+<h4
+id="visualization-of-body-weight-and-activity-relationship">Visualization
+of body weight and activity relationship</h4>
+</blockquote>
+<div class="sourceCode" id="cb156"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>new_weight,<span class="fu">aes</span>(<span class="at">x=</span>WeightPounds, <span class="at">y=</span>ActiveHours)) <span class="sc">+</span></span>
+<span id="cb156-2"><a href="#cb156-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>())<span class="sc">+</span></span>
+<span id="cb156-3"><a href="#cb156-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> WeightPounds, <span class="at">y =</span> ActiveHours)) <span class="sc">+</span></span>
+<span id="cb156-4"><a href="#cb156-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Weight in Pounds&quot;</span>) <span class="sc">+</span></span>
+<span id="cb156-5"><a href="#cb156-5" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Active hours&quot;</span>) <span class="sc">+</span></span>
+<span id="cb156-6"><a href="#cb156-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Body weight and activity by Subject&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb156-7"><a href="#cb156-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb156-8"><a href="#cb156-8" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">&#39;Id&#39;</span>)</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-68-1.png" width="672" />
+[Figure 11]</p>
+<p><strong><em>Given the limited scope of the dataset, which contains
+information on only eight participants, and the observation that the
+majority of the measurements are derived from just two of them, as
+illustrated in the graph, it is not feasible to draw any substantial
+inferences from this limited dataset.</em></strong></p>
+<blockquote>
+<h4
+id="due-to-the-limited-nature-of-the-heart-rate-dataset-i-have-consolidated-the-data-from-recordings-made-in-march-and-april.">Due
+to the limited nature of the heart rate dataset, I have consolidated the
+data from recordings made in March and April.</h4>
+</blockquote>
+<div class="sourceCode" id="cb157"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" tabindex="-1"></a><span class="co"># Join</span></span>
+<span id="cb157-2"><a href="#cb157-2" tabindex="-1"></a>hrsec <span class="ot">&lt;-</span> hr1 <span class="sc">%&gt;%</span></span>
+<span id="cb157-3"><a href="#cb157-3" tabindex="-1"></a>  <span class="fu">full_join</span>(hr2,<span class="at">by =</span> <span class="fu">join_by</span>(Id, Time, Value))</span></code></pre></div>
+<blockquote>
+<h4 id="count-idividuals">Count idividuals</h4>
+</blockquote>
+<div class="sourceCode" id="cb158"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(hrsec<span class="sc">$</span>Id))</span></code></pre></div>
+<pre><code>## [1] 15</code></pre>
+<div class="sourceCode" id="cb160"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" tabindex="-1"></a><span class="fu">str</span>(hrsec)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    3614915 obs. of  3 variables:
+##  $ Id   : num  2.02e+09 2.02e+09 2.02e+09 2.02e+09 2.02e+09 ...
+##  $ Time : chr  &quot;4/1/2016 7:54:00 AM&quot; &quot;4/1/2016 7:54:05 AM&quot; &quot;4/1/2016 7:54:10 AM&quot; &quot;4/1/2016 7:54:15 AM&quot; ...
+##  $ Value: int  93 91 96 98 100 101 104 105 102 106 ...</code></pre>
+<p><strong><em>Only 15 subjects of the total have data for hr per
+second</em></strong></p>
+<blockquote>
+<h4 id="separate-date-and-time">Separate date and time</h4>
+</blockquote>
+<div class="sourceCode" id="cb162"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" tabindex="-1"></a>hrsec <span class="ot">&lt;-</span> hrsec <span class="sc">%&gt;%</span></span>
+<span id="cb162-2"><a href="#cb162-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">dmy_hms</span>(Time),</span>
+<span id="cb162-3"><a href="#cb162-3" tabindex="-1"></a>           <span class="at">date =</span> <span class="fu">as.Date</span>(Time))</span></code></pre></div>
+<blockquote>
+<h4 id="formatting-time">Formatting Time</h4>
+</blockquote>
+<div class="sourceCode" id="cb163"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" tabindex="-1"></a>hrsec<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">as.POSIXct</span>(hrsec<span class="sc">$</span>datetime), <span class="at">format =</span> <span class="st">&quot;%H:%M:%S&quot;</span>)</span></code></pre></div>
+<blockquote>
+<h4 id="calculate-beats-per-minute">Calculate beats per minute</h4>
+</blockquote>
+<div class="sourceCode" id="cb164"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" tabindex="-1"></a>agghrsec <span class="ot">&lt;-</span> hrsec <span class="sc">%&gt;%</span></span>
+<span id="cb164-2"><a href="#cb164-2" tabindex="-1"></a>  <span class="fu">arrange</span>(date, time) <span class="sc">%&gt;%</span></span>
+<span id="cb164-3"><a href="#cb164-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Id, date, <span class="at">min =</span> <span class="fu">substr</span>(hrsec<span class="sc">$</span>time, <span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb164-4"><a href="#cb164-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">BPM =</span> <span class="fu">mean</span>(Value), <span class="at">MinBPM =</span> <span class="fu">min</span>(Value), <span class="at">MaxBPM =</span> <span class="fu">max</span>(Value)) <span class="sc">%&gt;%</span></span>
+<span id="cb164-5"><a href="#cb164-5" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb164-6"><a href="#cb164-6" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>min)</span></code></pre></div>
+<blockquote>
+<h4 id="average-daily-heart-rate">Average daily heart rate</h4>
+</blockquote>
+<div class="sourceCode" id="cb165"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" tabindex="-1"></a>minmaxbyid <span class="ot">&lt;-</span> agghrsec <span class="sc">%&gt;%</span></span>
+<span id="cb165-2"><a href="#cb165-2" tabindex="-1"></a>  <span class="fu">group_by</span>(Id, date) <span class="sc">%&gt;%</span></span>
+<span id="cb165-3"><a href="#cb165-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">DailyMinHR =</span> <span class="fu">mean</span>(MinBPM, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb165-4"><a href="#cb165-4" tabindex="-1"></a>            <span class="at">DailyMaxHR =</span> <span class="fu">mean</span>(MaxBPM, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb165-5"><a href="#cb165-5" tabindex="-1"></a></span>
+<span id="cb165-6"><a href="#cb165-6" tabindex="-1"></a>minmaxbyid <span class="ot">&lt;-</span> minmaxbyid[<span class="fu">complete.cases</span>(minmaxbyid),]</span></code></pre></div>
+<blockquote>
+<h4 id="adding-day-of-the-week">Adding day of the week</h4>
+</blockquote>
+<div class="sourceCode" id="cb166"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" tabindex="-1"></a>minmaxbyid<span class="sc">$</span>DayofWeek <span class="ot">&lt;-</span> <span class="fu">wday</span>(minmaxbyid<span class="sc">$</span>date, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<blockquote>
+<h4 id="explore-the-heart-rate-variation-per-day">Explore the heart rate
+variation per day</h4>
+</blockquote>
+<div class="sourceCode" id="cb167"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb167-2"><a href="#cb167-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> minmaxbyid, <span class="fu">aes</span>(<span class="at">x =</span> DayofWeek, <span class="at">y =</span> DailyMinHR, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>), <span class="at">shape =</span> <span class="dv">21</span>)<span class="sc">+</span></span>
+<span id="cb167-3"><a href="#cb167-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> minmaxbyid, <span class="fu">aes</span>(<span class="at">x =</span> DayofWeek, <span class="at">y =</span> DailyMaxHR, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">show.legend =</span> <span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb167-4"><a href="#cb167-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Min_HR&quot;</span>,<span class="st">&quot;Max_HR&quot;</span>), <span class="at">name =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb167-5"><a href="#cb167-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
+<span id="cb167-6"><a href="#cb167-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;HR in beats per min&quot;</span>) <span class="sc">+</span></span>
+<span id="cb167-7"><a href="#cb167-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Daily Min and Max Heart Rate by Subject&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb167-8"><a href="#cb167-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">14</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>,<span class="at">hjust=</span><span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb167-9"><a href="#cb167-9" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">&#39;Id&#39;</span>)<span class="sc">+</span></span>
+<span id="cb167-10"><a href="#cb167-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span></code></pre></div>
+<p><img src="Case-Study_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p>[Figure 12]</p>
+<p><strong><em>It appears that the occurrence of elevated heart rates is
+more prevalent on Sundays, potentially due to heightened physical
+activity among participants during the weekend. It is worth noting that
+one subject exhibited a heart rate that exceeded the established safety
+limits, while another subject displayed a heart rate that was
+significantly below the normal range.</em></strong></p>
+<blockquote>
+<h3 id="share-phase"><strong>Share Phase</strong></h3>
+</blockquote>
+<p>As a continuation if the prior phase, a presentation of the
+visualizations showcasing the analysis of smart device usage trends will
+be made to the relevant stakeholders. This presentation will adhere to
+the principles of clarity and simplicity to ensure optimal
+comprehension.</p>
+<blockquote>
+<h3 id="act-phase"><strong>Act Phase</strong></h3>
+</blockquote>
+<p>Based on the available data, here are some high-level recommendations
+for the company’s marketing strategy:</p>
+<ol style="list-style-type: decimal">
+<li>Promote Active Lifestyles and Movement:</li>
+</ol>
+<ul>
+<li>Focus on encouraging participants to increase daily steps, as there
+is a clear negative correlation between sedentary time and steps taken.
+Highlight products, services, or programs that help people stay active
+throughout the day, potentially integrating wearables or apps that track
+and reward steps or activity.</li>
+<li>Introduce features or services that help break up sedentary time,
+offering reminders or challenges to increase activity levels throughout
+the day.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Target Weekends for Higher-Intensity Products:</li>
+</ol>
+<ul>
+<li>Since participants tend to engage in higher-intensity activity on
+weekends, tailor marketing campaigns around weekend workout routines or
+weekend-centric fitness products. Consider promoting higher-intensity
+exercise equipment or activities specifically designed for weekend
+warriors.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Improve Sleep Hygiene and Recovery:</li>
+</ol>
+<ul>
+<li>Address the challenges with sleep time and the time it takes to fall
+asleep. Create targeted messaging around products or solutions that
+improve sleep quality or help reduce time spent in bed before falling
+asleep. Sleep aids, mindfulness apps, and relaxation technologies could
+be integrated into marketing efforts.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Educate on Healthy Activity Levels:</li>
+</ol>
+<ul>
+<li>Use the data that those with higher activity levels walk 10,000
+steps to inform messaging. Encourage customers to set attainable fitness
+goals by highlighting the benefits of a more active lifestyle, such as
+improved caloric expenditure and better sleep quality. Offer rewards or
+incentives for reaching the 10,000-step goal.</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>Incorporate Intensity-Based Fitness Options:</li>
+</ol>
+<ul>
+<li>The relationship between intensity and caloric expenditure suggests
+that more intense exercise leads to greater caloric burn. Position
+products or services that cater to both low and high-intensity
+activities, addressing the varying intensity levels within the audience
+(e.g., moderate for beginners, high-intensity for seasoned fitness
+enthusiasts).</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li>Encourage Mindful Activity and Rest:</li>
+</ol>
+<ul>
+<li>Promote balanced routines that emphasize both physical activity and
+sufficient rest, especially since sedentary time correlates negatively
+with sleep. Products could focus on enhancing recovery, such as recovery
+aids or accessories designed for restful sleep and improving
+post-exercise recovery.</li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li>Target Different Physical Activity Segments:</li>
+</ol>
+<ul>
+<li>Develop targeted messaging for different activity levels, from
+“healthy” to “unhealthy” groups, acknowledging that walking more (i.e.,
+aiming for 10,000 steps a day) can help improve fitness. Create
+campaigns that focus on incremental improvements for people who
+currently walk less (5,000 steps), using testimonials or success stories
+from those who have achieved higher activity levels.</li>
+</ul>
+<ol start="8" style="list-style-type: decimal">
+<li>Personalized Marketing Based on Heart Rate Data:</li>
+</ol>
+<ul>
+<li>With heart rate data varying across participants, marketing
+campaigns could offer personalized fitness plans or wearable tech that
+tracks and adjusts exercise intensity based on heart rate zones.
+Highlight heart rate tracking as a feature for users who want to ensure
+they are exercising within safe limits.</li>
+</ul>
+<ol start="9" style="list-style-type: decimal">
+<li>Leverage Activity Tracking Devices:</li>
+</ol>
+<ul>
+<li>Given that many participants have sedentary tendencies, consider
+marketing activity trackers or wearables that track steps, heart rate,
+and activity intensity, providing users with clear feedback on their
+progress. Products could have features to send alerts when it’s time to
+move or engage in physical activity, helping combat prolonged sedentary
+behavior.</li>
+</ul>
+<ol start="10" style="list-style-type: decimal">
+<li>Data-Driven Customization:</li>
+</ol>
+<ul>
+<li>Considering that this data is limited to a small sample size, future
+campaigns should be tailored to specific demographics or fitness levels
+(e.g., moderate activity, sedentary) based on broader audience insights.
+Personalized ads and product recommendations could be used for different
+activity levels or goals, such as walking more, increasing intensity, or
+improving sleep quality. By aligning the marketing strategy with these
+trends, the company can offer solutions that encourage healthier
+behaviors and provide value through personalized products and
+services.</li>
+</ul>
+<p><strong><em>The author would like to express their gratitude to the
+reader for taking the time to peruse this text.</em></strong></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
