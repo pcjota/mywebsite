@@ -1,0 +1,21 @@
+name: "Mywebsite"
+title: "My new website"
+type: inverse
+left:
+  - text: "About me"
+    menu:
+      - text: "Learn more about me"
+        href: ./aboutme.html
+  - text: "Projects"
+    menu:
+       - text: "Case Study Bellabeat"
+         href: ./Case-Study.html
+       - text: "BMI in PAH"
+         href: ./bmi_pah.html
+  - text: "Resume"
+    href: ./cv.html
+  - text: "Contact"
+    href: ./contact.html  
+right:
+  - icon: fa-github fa-lg
+    href: https://github.com/pcjota/mywebsite

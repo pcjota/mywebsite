@@ -1,0 +1,61 @@
+---
+title: "Resume"
+# author: "Priscilla"
+# date: "2025-01-31"
+output: html_document
+---
+
+
+
+<h3>**Education**</h3>
+
+
+**Master of Translational Data Analytics** 
+
+Translational Data Analytics Institute, The Ohio State University
+
+**Degree in Biochemistry** 
+
+Faculty of Pharmacy, University of Concepción, Concepción, Chile
+
+**License in Biochemistry**
+
+Faculty of Pharmacy, University of Concepción, Concepción, Chile
+
+
+
+<h3>**Work Experience**</h3>
+
+<h5>Data Analyst and Project Manager</h5>
+
+Icahn School of Medicine at Mount Sinai 2024 - present
+
+Project PHORA: A Clinical Decision Support Tool for Patients with Pulmonary Arterial Hypertension
+
+<h5>Consultant 2023</h5>
+
+Project PHORA: A Clinical Decision Support Tool for Patients with Pulmonary Arterial Hypertension
+
+<h5>Research Laboratory Manager</h5> 
+
+2020-2023 at The Ohio State University Wexner Medical Center, Cardiovascular Medicine
+
+* Managed the creation and coordination of the Biobank for the Division of Cardiovascular Diseases.
+
+* Oversaw data collection, management, and analysis for multiple clinical trials.
+
+* Developed abstracts, papers, and presentations for scientific conferences.
+
+* Supervised laboratory staff and student workers.
+
+* Supervised the operation, monitoring and maintenance of the laboratory.
+
+<h3>**Certifications**</h3>
+
+* Google Data Analytics Professional Certificate
+    
+In progress, expected completion: February 2025 Coursera (Offered by Google)
+
+* Certified ACRP Project Manager (ACRP-PM) Association for Clinical Research Professionals
+
+* Certified Clinical Research Coordinator (CCRC) Association for Clinical Research Professionals

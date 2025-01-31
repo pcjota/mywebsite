@@ -1,0 +1,27 @@
+---
+title: "My Portfolio"
+output: 
+  html_document:
+    toc: FALSE
+---
+
+
+
+
+**Welcome to My Digital Portfolio!**
+
+![](avatarpcj36.jpg)
+
+
+# Getting started
+
+Hello and thank you for visiting my portfolio! I have always had a passion for analysis, whether it's diving deep into complex data sets, exploring intricate patterns in design, or critically evaluating ideas and concepts. This fascination has driven me to explore various fields and hone my skills in different areas.
+
+Here, you will find a carefully curated collection of my work that showcases my analytical mindset and creative approach. Each project represents not just a task completed, but a journey of exploration and understanding. I invite you to browse through my portfolio, where you can witness the fusion of analysis and creativity that defines my work.
+
+
+
+Click the links in the menu above to look around.
+
+Enjoy your exploration!
+

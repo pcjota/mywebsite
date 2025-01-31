@@ -1,0 +1,869 @@
+---
+title: "Case Study"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<h1 style="text-align:center;">**Google Data Analytics Capstone**</h1> 
+<h3 style="text-align:center;">**How Can a Wellness Technology Company Play It Smart?**</h3> 
+<h3 style="text-align:center;">**Bellabeat Wellness Company**</h3> 
+
+![](Fig00.png) 
+
+
+>### Introduction and Background
+
+In today's rapidly evolving health and wellness market, data-driven insights are essential for companies seeking to harness their potential and engage consumers effectively. As a junior data analyst on the marketing analyst team at Bellabeat, I have the unique opportunity to contribute to a forward-thinking company specializing in high-tech health-focused products for women. Founded by Urška Sršen, who serves as the cofounder and Chief Creative Officer, Bellabeat is a dynamic small business poised to expand its footprint in the competitive global smart device market.
+
+The alignment of Bellabeat’s innovative products with the rising consumer demand for fitness and health monitoring technology presents a significant opportunity for growth. Sršen firmly believes that the strategic analysis of fitness data derived from smart devices can unlock previously untapped avenues for market expansion and customer engagement. Consequently, I have been tasked with delving into the usage patterns and behaviors of consumers through data analytics, focusing on one of Bellabeat’s flagship products.
+
+This analysis aims to provide insights that will not only enhance our understanding of user interactions with the device but also inform and guide marketing strategies for Bellabeat moving forward. By presenting these findings and high-level recommendations to the Bellabeat executive team, we hope to pave the way for a more targeted and effective approach to reaching our audience and leveraging our unique position in the health tech landscape. Through this initiative, we will explore the intricacies of consumer behavior and unlock the full potential of data to drive Bellabeat's growth in the wellness ecosystem.
+
+
+
+
+>### Products from the company
+
+* Bellabeat app: The Bellabeat app provides users with health data related to their activity, sleep, stress,
+menstrual cycle, and mindfulness habits. This data can help users better understand their current habits and
+make healthy decisions. The Bellabeat app connects to their line of smart wellness products.
+* Leaf: Bellabeat’s classic wellness tracker can be worn as a bracelet, necklace, or clip. The Leaf tracker connects
+to the Bellabeat app to track activity, sleep, and stress.
+* Time: This wellness watch combines the timeless look of a classic timepiece with smart technology to track user
+activity, sleep, and stress. The Time watch connects to the Bellabeat app to provide you with insights into your
+daily wellness.
+* Spring: This is a water bottle that tracks daily water intake using smart technology to ensure that you are
+appropriately hydrated throughout the day. The Spring bottle connects to the Bellabeat app to track your
+hydration levels.
+*  Bellabeat membership: Bellabeat also offers a subscription-based membership program for users.
+Membership gives users 24/7 access to fully personalized guidance on nutrition, activity, sleep, health and
+beauty, and mindfulness based on their lifestyle and goals.
+
+
+
+>### **Ask Phase**
+
+>#### Objective:
+
+Analyze data on consumer usage of non-Bellabeat smart devices to uncover trends that could offer valuable insights into how Bellabeat customers use smart devices. Using these insights, select a Bellabeat product and propose ways these trends can influence Bellabeat's marketing strategy.
+
+>#### Stakeholders:
+
+* Urška Sršen: Bellabeat’s cofounder and Chief Creative Officer
+* Sando Mur: Mathematician and Bellabeat’s cofounder; key member of the Bellabeat executive team
+* Bellabeat marketing analytics team: A team of data analysts responsible for collecting, analyzing, and reporting
+data that helps guide Bellabeat’s marketing strategy. I joined this team six months ago and have been busy
+learning about Bellabeat’s mission and business goals — as well as how, as a junior data analyst, I can help Bellabeat achieve them.
+
+
+>### **Prepare Phase**
+
+>#### Dataset and Data Organization:
+
+The FitBit Fitness Tracker Data (CC0: Public Domain, available through Mobius) is a publicly accessible dataset on Kaggle, featuring personal fitness data from thirty Fitbit users. The data includes minute-by-minute records of physical activity, heart rate, and sleep monitoring, collected from users who agreed to share their personal tracker data. This dataset provides insights into daily activity, steps, and heart rate, making it a valuable resource for exploring user habits.
+
+The data was gathered from participants in a survey conducted via Amazon Mechanical Turk between December 3, 2016, and December 5, 2016. Thirty eligible Fitbit users consented to contribute their data, which includes detailed records for physical activity, heart rate, and sleep. Individual data can be accessed by session ID (column A) or timestamp (column B). Variations in the data reflect the different types of Fitbit trackers used, as well as the personal tracking preferences and behaviors of the participants.
+
+Eighteen CSV documents are available for analysis, each representing different quantitative data tracked by Fitbit. Due to the nature of the data, which is considered long, each row corresponds to one time point per subject. Consequently, each subject will have data in multiple rows.Each user has a unique ID, and the data is tracked by day and time, resulting in different rows for each user.
+
+>#### Data credibility and integrity:
+
+Data credibility and integrity constitute significant concerns in the context of this study. The dataset, which is limited to 30 users, exhibits notable 
+deficiencies in terms of demographic details and representativeness, as evidenced by its small size. Furthermore, the dataset's limited collection period, 
+spanning merely two months, is likely to introduce sampling bias issues into the data. To address these limitations and ensure the validity of the results, 
+the present case study employs an approach that prioritizes practical applications of the data. This methodological decision is informed by a recognition of 
+the dataset's inherent limitations in terms of its scope and relevance.
+
+
+
+>### **Process Phase**
+
+I selected R, a powerful, open-source programming language specifically designed for statistical computing and graphics, as my analysis tool of choice. R is 
+equipped with an extensive array of advanced statistical methods, a robust ecosystem of packages for various analysis requirements, and exceptional data visualization
+capabilities. Its robust capabilities make it ideal for complex statistical analysis as well as research-oriented data projects. 
+
+
+#### Installing and loading common packages and libraries
+```{r message=FALSE, warning=FALSE, include=TRUE}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(dlookr)
+library(cowplot)
+library(lubridate)
+```
+
+
+#### Loading CSV files
+```{r, include=TRUE}
+activity <- read.csv("~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyActivity_merged.csv")
+sleep <- read.csv("~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/sleepDay_merged.csv")
+calories <- read.csv("~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyCalories_merged.csv")
+steps <- read.csv("~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailySteps_merged.csv")
+intensities <- read.csv("~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/dailyIntensities_merged.csv")
+weight <- read.csv("~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/weightLogInfo_merged.csv")
+# Heart rates in seconds
+hr1 <- read.csv("~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/heartrate_seconds_merged.csv")
+hr2 <- read.csv("~/google analytics/CAPSTONE/archive (1)/mturkfitbit_export_4.12.16-5.12.16/Fitabase Data 4.12.16-5.12.16/heartrate_seconds_merged.csv")
+```
+
+>#### Explore the data
+
+>* Daily Activity dataset
+
+Head
+```{r, include=TRUE}
+head(activity)
+```
+
+Glimpse of Activity 
+```{r, include=TRUE}
+glimpse(activity)
+```
+
+Checking missing data
+```{r, include=TRUE}
+sum(is.na(activity))
+```
+
+>* Sleep dataset
+
+Head
+```{r, include=TRUE}
+head(sleep)
+```
+
+Glimpse of Sleep
+```
+glimpse(sleep)
+```
+
+Checking missing data
+```{r, include=TRUE}
+sum(is.na(sleep))
+```
+
+>* Calories dataset
+
+Head
+```{r, include=TRUE}
+head(calories)
+```
+
+Glimpse of Calories 
+```{r, include=TRUE}
+glimpse(calories)
+```
+
+Checking missing data
+```{r, include=TRUE}
+sum(is.na(calories))
+```
+
+>* Steps dataset
+
+Head
+```{r, include=TRUE}
+head(steps)
+```
+
+Glimpse of Steps 
+```{r, include=TRUE}
+glimpse(steps)
+```
+
+Checking missing data
+```{r, include=TRUE}
+sum(is.na(steps))
+```
+
+>* Intensity dataset
+
+Head
+```{r, include=TRUE}
+head(intensities)
+```
+Glimpse of Intensities
+```{r, include=TRUE}
+glimpse(intensities)
+```
+Checking missing data
+```{r, include=TRUE}
+sum(is.na(intensities))
+```
+>* Weight dataset
+
+Head
+```{r, include=TRUE}
+head(weight)
+```
+Glimpse of Weight
+```{r, include=TRUE}
+glimpse(weight)
+```
+Checking missing data
+```{r, include=TRUE}
+sum(is.na(weight))
+```
+
+>* Heart Rate 1 (March) dataset
+
+Head
+```{r, include=TRUE}
+head(hr1)
+```
+Glimpse of Heart Rate 1
+```{r, include=TRUE}
+glimpse(hr1)
+```
+Checking missing data
+```{r, include=TRUE}
+sum(is.na(hr1))
+```
+
+>* Heart Rate 2 (April) dataset
+
+Head
+```{r, include=TRUE}
+head(hr2)
+```
+Glimpse of Heart Rate 2
+```{r, include=TRUE}
+glimpse(hr2)
+```
+Checking missing data
+```{r, include=TRUE}
+sum(is.na(hr2))
+```
+
+#### Checking the number of unique subjects in each dataset
+```{r, include=TRUE}
+length(unique(activity$Id))
+length(unique(sleep$Id))
+length(unique(calories$Id))
+length(unique(steps$Id))
+length(unique(intensities$Id))
+length(unique(weight$Id))
+length(unique(hr1$Id))
+length(unique(hr2$Id))
+```
+
+***Four of the datasets contain information from 33 subjects. Sleep data was recorded by 24 subjects, heart rate data by 14, and weight data by only 8 participants.***
+
+#### Checking duplicates
+```{r, include=TRUE}
+sum(duplicated(activity))
+sum(duplicated(calories))
+sum(duplicated(intensities))
+sum(duplicated(sleep))
+sum(duplicated(steps))
+sum(duplicated(weight))
+sum(duplicated(hr1))
+sum(duplicated(hr2))
+```
+***It seems that only the sleep dataset has duplicates***
+
+
+#### Checking column names
+```{r, include=TRUE}
+colnames(activity)
+colnames(sleep)
+colnames(calories)
+colnames(steps)
+colnames(intensities)
+colnames(weight)
+colnames(hr1)
+colnames(hr2)
+```
+***While the 3 out of 4 datasets has a column called 'ActivityDay', the activity dataset column is called 'ActivityDate'. Since the dates match, we will rename the column in the process phase.***
+
+
+>#### Summary statistics
+
+>* Daily Activity data
+
+```{r, include=TRUE}
+activity %>%  
+  select(TotalSteps,TotalDistance,SedentaryMinutes,Calories) %>%
+  summary()
+```
+***On average, this group of participants walks 7,638 steps per day. They spend approximately 991 minutes in a sedentary state.***
+
+
+>* Sleep data
+
+```{r, include=TRUE}
+sleep %>%  
+  select(TotalSleepRecords,TotalMinutesAsleep,TotalTimeInBed) %>%
+  summary()
+```
+***On average, the study participants required 39 minutes to fall asleep and reported sleeping for approximately seven hours.***
+
+>* Calories data
+
+```{r, include=TRUE}
+calories %>%  
+  summary()
+```
+***The average daily caloric expenditure of these participants is 2,304 calories.***
+
+>* Steps data
+
+```{r, include=TRUE}
+steps %>%  select(StepTotal) %>%
+  summary()
+```
+***The mean total steps for this group is 7,406 steps.***
+
+>* Intensities data
+
+```{r, include=TRUE}
+intensities %>% select(SedentaryMinutes,LightlyActiveMinutes,FairlyActiveMinutes,VeryActiveMinutes,VeryActiveDistance) %>%
+  summary()
+```
+***This group exhibited a tendency to engage in sedentary behavior for a greater duration than the total amount of active time they accumulated each day, with an average of 1.5 miles of very active distance traversed.*** 
+
+>* Weight data
+
+```{r, include=TRUE}
+weight %>%  
+  select(WeightPounds,Fat,BMI) %>%
+  summary()
+```
+***The mean weight and BMI of these subjects are 158 lbs and 25.2, respectively.The Fat variable contains a preponderance of NAs, rendering its information unusable.***
+
+>* Heart Rate data
+
+```{r, include=TRUE}
+hr1 %>% select(Value) %>%
+  summary()
+hr2 %>% select(Value) %>%
+  summary()
+```
+***While the average was approximately 78, the data for both months demonstrate significant variations in heart rate.***
+
+
+>#### Rename intensities dataset column
+
+```{r, include=TRUE}
+intensities <- intensities %>%
+  rename(ActivityDate = ActivityDay)
+```
+>#### Identifying duplicates in sleep dataset
+
+```{r, include=TRUE}
+sleep_duplicates <- sleep[duplicated(sleep), ]
+sleep_duplicates
+```
+
+>#### Deleting duplicates in sleep dataset
+
+```{r, include=TRUE}
+new_sleep <- sleep %>%
+  group_by_all() %>%
+  filter(n() <= 1) %>%
+  ungroup()
+```
+
+
+>#### Checking if steps dataset contains the same information than activity dataset
+
+```{r, include=TRUE}
+table(activity$TotalSteps == steps$StepTotal)
+table(activity$ActivityDate == steps$ActivityDay)
+```
+
+**The data in steps is already within the activity dataset. We dont need it.** 
+
+>#### Checking if calories dataset contains the same information than activity dataset
+
+```{r, include=TRUE}
+table(calories$Calories == activity$Calories)
+table(calories$ActivityDay == activity$ActivityDate)
+```
+**The data in calories is already within the activity dataset. We dont need it.**
+
+
+>#### Merging datasets together
+
+```{r, include=TRUE}
+join_data <- activity %>%
+  inner_join(intensities) 
+```
+
+>#### Checking classes
+
+```{r, include=TRUE}
+str(join_data)
+```
+
+>#### Data Type Conversion
+
+```{r, include=TRUE}
+join_data$Id <- as.factor(join_data$Id)
+join_data$ActivityDate <- as.Date(join_data$ActivityDate, format = '%m/%d/%Y')
+```
+
+
+>#### Data Transformation
+>#### Create a column for day of the week
+
+```{r, include=TRUE}
+join_data$DayofWeek <- wday(join_data$ActivityDate, label = TRUE, abbr = FALSE)
+```
+
+
+>#### Create a column for active hours
+
+```{r, include=TRUE}
+join_data <- join_data %>%
+    mutate(ActiveHours = round(rowSums(across(c(VeryActiveMinutes,FairlyActiveMinutes,LightlyActiveMinutes)), na.rm = TRUE)/60))  
+```
+
+>#### Create a column for sedentary hours
+
+```{r, include=TRUE}
+join_data <- join_data %>%
+  mutate(SedentaryHours = round(SedentaryMinutes/60))
+```
+
+
+>### **Analyze Phase**
+
+>#### Do these participants spend more time active or sedentary?
+
+```{r, include=TRUE}
+# Create total average activity
+avgActive <- mean(join_data$ActiveHours)
+avgSedentary <- mean(join_data$SedentaryHours)
+tot <- avgActive + avgSedentary
+```
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+# Create a dataframe to plot
+df1 <- data_frame(avgActive, avgSedentary, tot)  %>%
+  pivot_longer(cols = everything()) %>%
+  mutate(name = c("Active", "Sedentary", "Total"),
+         percentage = c((avgActive/tot), (avgSedentary/tot), tot/tot)) %>%
+  filter(!name == "Total") %>%
+  mutate(label = scales::percent(percentage))
+```
+ 
+
+```{r, include=TRUE}
+# Plot
+ggplot(df1, aes(x = "", y = value, fill = name)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) + theme_void() +
+  ggtitle("Figure 1. Average Activity per Hour") +
+  theme(plot.title = element_text(hjust = 0.5, vjust = -2)) +
+  scale_fill_manual(name = "Activity Type", 
+                    labels = c("Active",
+                                "Sedentary"),
+                    values = c("skyblue", "lightgray")) +
+  geom_label(aes(label = label), 
+             size = 5,
+             position = position_stack(vjust = .4),
+             show.legend = FALSE)
+```
+
+[Figure 1]
+
+
+
+
+***Unfortunately, this group of participants spend more than 80% of their time without activity.***
+
+
+>#### Comparing the 3 types of active minutes with calories
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+#Create dataset for plot
+data_long <- gather(join_data, variable, value, VeryActiveMinutes:LightlyActiveMinutes)
+
+# Plot
+ggplot(data = data_long) + 
+  geom_point(mapping = aes(x = value, y = Calories, color = variable)) +
+  geom_smooth(mapping = aes(x = value, y = Calories), method = lm) +
+  facet_wrap(~ variable, scales = "free") +
+  xlab('Active Minutes') +
+  ggtitle("Comparison of Active Minutes Intensity, and Calories") + 
+  theme(plot.title = element_text(color="black", size=14, face="bold",hjust=0.5))
+```
+[Figure 2]
+
+
+***As demonstrated in the data, there is a direct correlation between increased intensity and increased caloric expenditure. However, it is noteworthy that these subjects also engaged in light activity for a greater proportion of time.***
+
+>#### Intensity variation within days of the week
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ggplot(data = data_long) + 
+  geom_bar(mapping = aes(fill = variable, x = DayofWeek, y = value), stat = "identity", position = "dodge")
+```
+
+[Figure 3]
+
+***The graph clearly shows that participants generally engage in low-intensity exercise during the week and higher intensity exercise on the weekends.***
+
+
+>#### Comparing active minutes with total steps
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ggplot(data = data_long) + 
+  geom_point(mapping = aes(x = value, y = TotalSteps, color = variable)) +
+  geom_smooth(mapping = aes(x = value, y = TotalSteps), method = lm) +
+  facet_wrap(~ variable, scales = "free") +
+  xlab('Active Minutes') +
+  ylab('Total Steps') +
+  ggtitle("Comparison of Active Minutes Intensity, and Total Steps") + 
+  theme(plot.title = element_text(color="black", size=14, face="bold",hjust=0.5))
+```
+
+[Figure 4]
+
+
+***Conversely, as the intensity of the exercise increases, the number of steps taken also rises.***
+
+
+>#### Relationship between steps and inactivity
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ggplot(data=activity, aes(x=TotalSteps, y=SedentaryMinutes)) + 
+  geom_point() +
+  geom_smooth(mapping = aes(x=TotalSteps, y=SedentaryMinutes), method = lm, se = FALSE) +
+  xlab('Total Steps')+
+  ylab('Sedentary Minutes')+
+  ggtitle('Total Steps and Sedentary Minutes Relationship') + 
+  theme(plot.title = element_text(color="black", size=14, face="bold",hjust=0.5))
+```
+
+[Figure 5]
+
+***A negative correlation exists between the number of steps taken per day and sedentary minutes.***
+
+
+>#### Minutes Asleep and Time in Bed Relationship
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ggplot(data=new_sleep, aes(x=TotalMinutesAsleep, y=TotalTimeInBed)) + 
+  geom_point() +
+  geom_smooth(mapping = aes(x=TotalMinutesAsleep, y=TotalTimeInBed), method = lm, se = FALSE) +
+  xlab('Total Minutes Asleep')+
+  ylab('Total Time in Bed')+
+  ggtitle('Minutes Asleep and Time in Bed Relationship') + 
+  theme(plot.title = element_text(color="black", size=14, face="bold",hjust=0.5))
+```
+[Figure 6]
+
+***While the relationship between time in bed and time asleep is nearly linear, some outliers are observed in subjects who require a longer time to fall asleep.***
+
+
+##### According to WHO guidelines, Adults should do at least 150–300 minutes of moderate-intensity aerobic physical activity; or at least 75–150 minutes of vigorous intensity aerobic physical activity; or an equivalent combination of moderate- and vigorous-intensity activity throughout the week, for substantial health benefits. https://www.who.int/publications/i/item/9789240015128
+
+>#### Create a column to show week number
+
+```{r, include=TRUE}
+join_data$week_num <- strftime(join_data$ActivityDate, format = "%V")
+table(join_data$week_num)
+```
+
+>#### Grouping the data by week
+
+```{r, include=TRUE}
+aggregateByWk <- dplyr::group_by(join_data,Id,week_num)
+```
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+aggregateByWk <- dplyr::summarise(aggregateByWk,
+                                  AverageSteps = base::mean(TotalSteps, na.rm = TRUE),
+                                  AvgVeryActiveMin = base::mean(VeryActiveMinutes, na.rm = TRUE),
+                                  AvgModerateActMin = base::mean(FairlyActiveMinutes, na.rm = TRUE),
+                                  AvgLightlyActMin = base::mean(LightlyActiveMinutes, na.rm = TRUE),
+                                  AvgSedentaryMin = base::mean(SedentaryMinutes, na.rm = TRUE),
+                                  SumVeryActiveMin = base::sum(VeryActiveMinutes, na.rm = TRUE),
+                                  SumModerateActiveMin = base::sum(FairlyActiveMinutes, na.rm = TRUE),
+                                  SumLightlyActiveMin = base::sum(LightlyActiveMinutes, na.rm = TRUE),
+                                  AvgModerateActDis = base::mean(ModeratelyActiveDistance, na.rm = TRUE),
+                                  AvgVeryActiveDis = base::mean(VeryActiveDistance, na.rm = TRUE),
+                                  AvgActiveHours = base::mean(ActiveHours, na.rm = TRUE),
+                                  AvgSedentaryHours = base::mean(SedentaryHours, na.rm = TRUE),
+                                  AvgCalories = base::mean(Calories, na.rm = TRUE))
+```
+
+
+>#### Create a categorical variable for healthy habits according to WHO guidelines
+
+```{r, include=TRUE}
+aggregateByWk <- aggregateByWk %>%
+  mutate(Healthy = case_when(SumModerateActiveMin >= 150 ~ 'Y',
+                             SumVeryActiveMin >= 75 ~ 'Y',
+                             TRUE ~ 'N'))
+```
+
+
+>#### Plot
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ggplot(aggregateByWk, aes(Healthy, AverageSteps)) +
+  geom_boxplot(aes(fill = stage(Healthy, after_scale = alpha(fill, 0.4)))) +
+  ggtitle("Mean number of steps by Healthy and Unhealthy Activity") + 
+  theme(plot.title = element_text(color="black", size=14, face="bold",hjust=0.5))
+```
+[Figure 7]
+
+***The data demonstrate that participants who maintain a "healthy" level of physical activity typically walk approximately 10,000 steps, while those in the "unhealthy" category typically walk around 5,000 steps on average.***
+
+
+### Comparing very active and moderate intensities
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ver1 <- ggplot(data = aggregateByWk, mapping = aes(x = AvgVeryActiveMin, y = AvgVeryActiveDis, colour = Healthy)) +
+  geom_point(size = 2, alpha = 0.5) +
+  xlab('Mean Very Active Minutes') +
+  ylab('Mean Very Active Distance')
+
+
+mod1 <- ggplot(data = aggregateByWk, mapping = aes(x = AvgModerateActMin, y = AvgModerateActDis, colour = Healthy)) +
+  ylim(0,11) + xlim(0,120) +
+  geom_point(size = 2, alpha = 0.5) +
+  xlab('Mean Moderate Active Minutes') +
+  ylab('Mean Moderate Active Distance')
+
+g0 <- plot_grid(ver1, mod1, labels = "AUTO")
+
+title0 <- ggdraw() + draw_label("Very Active and Moderate Activity", fontface='bold')
+
+plot_grid(title0, g0, ncol=1, rel_heights=c(0.1, 1))
+
+```
+[Figure 8]
+
+
+***Participants engaging in moderate physical activity allocate a reduced amount of time and cover shorter distances in comparison to individuals categorized as "very active."***
+
+
+>#### Is the intensity of physical activity evenly distributed or is it concentrated in some participants?
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+data_longwk <- gather(aggregateByWk, variable, value, AvgVeryActiveMin:AvgModerateActMin)
+
+intbyid <- data_longwk %>%
+  group_by(Id,variable) %>%
+  summarise(mean_value = mean(value))
+```
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ggplot(data = intbyid) + 
+  geom_bar(mapping = aes(fill = variable, x = Id, y = mean_value), stat = "identity", position = "dodge") +
+  ggtitle("Activity intensity per subject") + 
+  theme(plot.title = element_text(color="black", size=14, face="bold",hjust=0.5))+
+        coord_flip( )
+```
+[Figure 9]
+
+***It is evident that the intensity of physical activity is disproportionate among the participants, with some displaying notably higher levels of exertion compared to the overall group.*** 
+
+
+
+
+>#### Test whether individuals who engage in more physical activity experience better sleep quality.
+
+>#### join sleep with the intensities data
+
+```{r, include=TRUE}
+new_sleep <- new_sleep %>%
+  left_join(intensities, by=c('Id', 'ActivityDay'='ActivityDate'))
+```
+
+
+>#### Total active minutes, can be the sum of VeryActiveMinutes+FairlyActiveMinutes+LightlyActiveMinutes.
+>#### Create new column for active minutes
+
+```{r, include=TRUE}
+new_sleep <- new_sleep %>%
+  rowwise() %>%
+  mutate(TotalActiveMin = sum(VeryActiveMinutes,FairlyActiveMinutes,LightlyActiveMinutes, na.rm = T))
+```
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+#plot(new_sleep$TotalActiveMin, new_sleep$TotalMinutesAsleep)
+
+p1 <- ggplot(data=new_sleep,aes(x=TotalActiveMin, y=TotalMinutesAsleep)) +
+  geom_point(aes())+
+  geom_smooth(mapping = aes(x = TotalActiveMin, y = TotalMinutesAsleep)) +
+  xlab("Total Active Minutes") +
+  ylab("Total Minutes Asleep")
+
+
+p2  <- ggplot(data=new_sleep,aes(x=SedentaryMinutes, y=TotalMinutesAsleep)) +
+  geom_point(aes())+
+  geom_smooth(mapping = aes(x = SedentaryMinutes, y = TotalMinutesAsleep)) +
+  xlab("Total Sedentary Minutes") +
+  ylab("Total Minutes Asleep")
+
+g <- plot_grid(p1, p2, labels = "AUTO")
+
+
+title <- ggdraw() + draw_label("Comparison of Active and Sedentary time with Sleep time", fontface='bold')
+
+plot_grid(title, g, ncol=1, rel_heights=c(0.1, 1))
+```
+[Figure 10]
+
+
+***While the data does not appear to support a direct correlation between physical activity time and sleep time among participants, a negative relationship is observed between sedentary time and sleep time.*** 
+
+
+>#### Do individuals with higher body weight tend to be less active?
+
+>#### Data type conversion
+
+```{r, include=TRUE}
+weight$ActivityDay <- as.Date(weight$Date, format = '%m/%d/%Y')
+weight$Id <- as.factor(weight$Id)
+```
+
+>#### Join with activity data
+
+```{r, include=TRUE}
+new_weight <- weight %>%
+  select(Id,ActivityDay,WeightPounds,BMI) %>%
+  left_join(join_data, by=c('Id','ActivityDay'='ActivityDate'))
+```
+
+>#### Visualization of body weight and activity relationship
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ggplot(data=new_weight,aes(x=WeightPounds, y=ActiveHours)) +
+  geom_point(aes())+
+  geom_smooth(mapping = aes(x = WeightPounds, y = ActiveHours)) +
+  xlab("Weight in Pounds") +
+  ylab("Active hours") +
+  ggtitle("Body weight and activity by Subject") + 
+  theme(plot.title = element_text(color="black", size=14, face="bold",hjust=0.5))+
+  facet_wrap('Id')
+```
+[Figure 11]
+
+***Given the limited scope of the dataset, which contains information on only eight participants, and the observation that the majority of the measurements are derived from just two of them, as illustrated in the graph, it is not feasible to draw any substantial inferences from this limited dataset.*** 
+
+
+>#### Due to the limited nature of the heart rate dataset, I have consolidated the data from recordings made in March and April.
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+# Join
+hrsec <- hr1 %>%
+  full_join(hr2,by = join_by(Id, Time, Value))
+```
+
+>#### Count idividuals
+
+```{r, include=TRUE}
+length(unique(hrsec$Id))
+str(hrsec)
+```
+***Only 15 subjects of the total have data for hr per second***
+
+>#### Separate date and time 
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+hrsec <- hrsec %>%
+  mutate(datetime = dmy_hms(Time),
+           date = as.Date(Time))
+```
+
+
+>#### Formatting Time
+
+```{r, include=TRUE}
+hrsec$time <- format(as.POSIXct(hrsec$datetime), format = "%H:%M:%S")
+```
+
+>#### Calculate beats per minute
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+agghrsec <- hrsec %>%
+  arrange(date, time) %>%
+  group_by(Id, date, min = substr(hrsec$time, 1, 5)) %>%
+  summarize(BPM = mean(Value), MinBPM = min(Value), MaxBPM = max(Value)) %>%
+  ungroup() %>%
+  select(-min)
+```
+
+>#### Average daily heart rate
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+minmaxbyid <- agghrsec %>%
+  group_by(Id, date) %>%
+  summarise(DailyMinHR = mean(MinBPM, na.rm = TRUE),
+            DailyMaxHR = mean(MaxBPM, na.rm = TRUE))
+
+minmaxbyid <- minmaxbyid[complete.cases(minmaxbyid),]
+```
+
+
+>#### Adding day of the week
+
+```{r, include=TRUE}
+minmaxbyid$DayofWeek <- wday(minmaxbyid$date, label = TRUE, abbr = FALSE)
+```
+
+>#### Explore the heart rate variation per day
+
+```{r message=FALSE, warning=FALSE, include=TRUE}
+ggplot()+
+  geom_point(data = minmaxbyid, aes(x = DayofWeek, y = DailyMinHR, color = "blue"), shape = 21)+
+  geom_point(data = minmaxbyid, aes(x = DayofWeek, y = DailyMaxHR, color = "red"), shape = 21, show.legend = TRUE)+
+  scale_color_manual(values = c("blue","red"), labels = c("Min_HR","Max_HR"), name = "") +
+  xlab("Date") +
+  ylab("HR in beats per min") +
+  ggtitle("Daily Min and Max Heart Rate by Subject") + 
+  theme(plot.title = element_text(color="black", size=14, face="bold",hjust=0.5))+
+  facet_wrap('Id')+
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+[Figure 12]
+
+
+***It appears that the occurrence of elevated heart rates is more prevalent on Sundays, potentially due to heightened physical activity among participants during the weekend. It is worth noting that one subject exhibited a heart rate that exceeded the established safety limits, while another subject displayed a heart rate that was significantly below the normal range.*** 
+
+
+>### **Share Phase**
+
+As a continuation if the prior phase, a presentation of the visualizations showcasing the analysis of smart device usage trends will be made to the relevant stakeholders. This presentation will adhere to the principles of clarity and simplicity to ensure optimal comprehension. 
+
+
+
+>### **Act Phase**
+
+Based on the available data, here are some high-level recommendations for the company's marketing strategy:
+
+1.	Promote Active Lifestyles and Movement:
+*	Focus on encouraging participants to increase daily steps, as there is a clear negative correlation between sedentary time and steps taken. Highlight products, services, or programs that help people stay active throughout the day, potentially integrating wearables or apps that track and reward steps or activity.
+* Introduce features or services that help break up sedentary time, offering reminders or challenges to increase activity levels throughout the day.
+2.	Target Weekends for Higher-Intensity Products:
+* Since participants tend to engage in higher-intensity activity on weekends, tailor marketing campaigns around weekend workout routines or weekend-centric fitness products. Consider promoting higher-intensity exercise equipment or activities specifically designed for weekend warriors.
+3.	Improve Sleep Hygiene and Recovery:
+* Address the challenges with sleep time and the time it takes to fall asleep. Create targeted messaging around products or solutions that improve sleep quality or help reduce time spent in bed before falling asleep. Sleep aids, mindfulness apps, and relaxation technologies could be integrated into marketing efforts.
+4.	Educate on Healthy Activity Levels:
+*	Use the data that those with higher activity levels walk 10,000 steps to inform messaging. Encourage customers to set attainable fitness goals by highlighting the benefits of a more active lifestyle, such as improved caloric expenditure and better sleep quality. Offer rewards or incentives for reaching the 10,000-step goal.
+5.	Incorporate Intensity-Based Fitness Options:
+*	The relationship between intensity and caloric expenditure suggests that more intense exercise leads to greater caloric burn. Position products or services that cater to both low and high-intensity activities, addressing the varying intensity levels within the audience (e.g., moderate for beginners, high-intensity for seasoned fitness enthusiasts).
+6.	Encourage Mindful Activity and Rest:
+*	Promote balanced routines that emphasize both physical activity and sufficient rest, especially since sedentary time correlates negatively with sleep. Products could focus on enhancing recovery, such as recovery aids or accessories designed for restful sleep and improving post-exercise recovery.
+7.	Target Different Physical Activity Segments:
+*	Develop targeted messaging for different activity levels, from "healthy" to "unhealthy" groups, acknowledging that walking more (i.e., aiming for 10,000 steps a day) can help improve fitness. Create campaigns that focus on incremental improvements for people who currently walk less (5,000 steps), using testimonials or success stories from those who have achieved higher activity levels.
+8.	Personalized Marketing Based on Heart Rate Data:
+*	With heart rate data varying across participants, marketing campaigns could offer personalized fitness plans or wearable tech that tracks and adjusts exercise intensity based on heart rate zones. Highlight heart rate tracking as a feature for users who want to ensure they are exercising within safe limits.
+9.	Leverage Activity Tracking Devices:
+*	Given that many participants have sedentary tendencies, consider marketing activity trackers or wearables that track steps, heart rate, and activity intensity, providing users with clear feedback on their progress. Products could have features to send alerts when it’s time to move or engage in physical activity, helping combat prolonged sedentary behavior.
+10.	Data-Driven Customization:
+*	Considering that this data is limited to a small sample size, future campaigns should be tailored to specific demographics or fitness levels (e.g., moderate activity, sedentary) based on broader audience insights. Personalized ads and product recommendations could be used for different activity levels or goals, such as walking more, increasing intensity, or improving sleep quality.
+By aligning the marketing strategy with these trends, the company can offer solutions that encourage healthier behaviors and provide value through personalized products and services.
+ 
+
+
+***The author would like to express their gratitude to the reader for taking the time to peruse this text.***
